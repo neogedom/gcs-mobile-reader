@@ -276,7 +276,6 @@ Teste de aceitação:
 
 
 #### Prompt 1.3.1: Modelos de Dados Básicos
-
 ```
 Crie os modelos de dados fundamentais para entidades GURPS com TDD.
 

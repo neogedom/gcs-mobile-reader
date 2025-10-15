@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:debug": "npm ls react react-test-renderer @testing-library/jest-native && echo '--- Dependency tree ---' && npm ls --depth=2",
+    "test:verbose": "npm install --verbose",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit"
   },
@@ -19,6 +21,7 @@
     "@react-native/typescript-config": "0.82.0",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.3.0",
+    "react-test-renderer": "18.2.0",
     "@types/react": "^18.2.37",
     "@types/react-native": "^0.72.5",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
