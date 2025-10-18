@@ -61,8 +61,6 @@ export class SchemaDetector {
     return SchemaVersion.UNKNOWN;
   }
 
-
-
   /**
    * Mapeia um número de versão para o enum SchemaVersion correspondente.
    */

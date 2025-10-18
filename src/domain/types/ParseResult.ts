@@ -1,5 +1,5 @@
 export type ParseResult = {
   success: boolean;
-  data: any | null;
+  data: Record<string, unknown> | null;
   errors: string[];
 };

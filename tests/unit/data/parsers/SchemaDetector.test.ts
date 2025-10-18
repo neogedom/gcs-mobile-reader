@@ -53,11 +53,11 @@ describe('SchemaDetector', () => {
     });
 
     it('deve retornar UNKNOWN para null/undefined', () => {
-      // @ts-ignore - testando valores inválidos
+      // @ts-expect-error - testando valores inválidos
       const resultNull = detector.detect(null);
       expect(resultNull).toBe(SchemaVersion.UNKNOWN);
 
-      // @ts-ignore - testando valores inválidos
+      // @ts-expect-error - testando valores inválidos
       const resultUndefined = detector.detect(undefined);
       expect(resultUndefined).toBe(SchemaVersion.UNKNOWN);
     });
@@ -85,7 +85,6 @@ describe('SchemaDetector', () => {
   });
 
   describe('Cenários de erro e edge cases', () => {
-
     it('deve detectar versão mesmo com comentários no JSON', () => {
       const jsonContent = `{
         // Este é um comentário
