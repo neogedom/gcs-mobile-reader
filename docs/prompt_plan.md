@@ -215,7 +215,7 @@ Teste de aceitação:
 ```
 Crie a camada de abstração para parsing de arquivos .gcs com TDD.
 
-Contexto: Projeto configurado com TypeScript e Jest. Arquivos .gcs são JSON/XML contendo dados de personagens GURPS.
+Contexto: Projeto configurado com TypeScript e Jest. Arquivos .gcs são JSON contendo dados de personagens GURPS.
 
 Requisitos:
 1. Interface IFileParser em /src/domain/interfaces/IFileParser.ts:
@@ -250,13 +250,11 @@ Contexto: Interface IFileParser já existe. Precisamos detectar versão antes de
 Requisitos:
 1. Criar SchemaDetector em /src/data/parsers/SchemaDetector.ts
 2. Implementar lógica para:
-   - Detectar se é JSON ou XML
    - Extrair campo de versão do arquivo
    - Mapear para SchemaVersion
    - Retornar "UNKNOWN" se não reconhecer
 3. Escrever testes PRIMEIRO com casos:
    - JSON válido com versão 5
-   - XML válido com versão 4
    - Arquivo sem versão
    - Arquivo malformado
 4. Implementar após testes escritos
@@ -269,7 +267,7 @@ Entregas esperadas:
 
 Teste de aceitação:
 - Todos os testes devem passar
-- Detector deve identificar JSON vs XML
+- Detector deve identificar JSON
 - Detector deve extrair versão corretamente
 - Detector deve retornar UNKNOWN para casos inválidos
 ```

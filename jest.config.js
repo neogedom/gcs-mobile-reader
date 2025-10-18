@@ -1,6 +1,7 @@
 module.exports = {
-  preset: 'react-native',
-  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
+  // Note: removed setupFilesAfterEnv that pulled '@testing-library/jest-native'
+  // because it imports react-native internals which require additional transforms.
+  // If you need jest-native assertions later, re-add with proper transforms.
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest',
