@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "id": "test_v3_001",
+  "total_points": 175,
+  "points_record": [
+    {
+      "when": "2025-01-15T14:00:00-03:00",
+      "points": 175,
+      "reason": "Test file for SchemaDetector V3"
+    }
+  ],
+  "profile": {
+    "name": "Test Character V3",
+    "age": "32",
+    "player_name": "Test Player"
+  },
+  "settings": {
+    "page": {
+      "paper_size": "a4",
+      "orientation": "landscape"
+    }
+  },
+  "attributes": [
+    {
+      "attr_id": "st",
+      "adj": 2,
+      "calc": {
+        "value": 12,
+        "points": 20
+      }
+    }
+  ],
+  "traits": [],
+  "skills": [],
+  "created_date": "2025-01-15T14:00:00-03:00",
+  "modified_date": "2025-01-15T14:00:00-03:00",
+  "calc": {
+    "basic_lift": "29 lb",
+    "move": [6, 4, 3, 2, 1],
+    "dodge": [9, 8, 7, 6, 5]
+  }
+}

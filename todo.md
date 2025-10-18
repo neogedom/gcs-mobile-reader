@@ -12,10 +12,10 @@ Plano detalhado para construção do visualizador mobile GURPS Character Sheet (
 - [x] Criar README.md com descrição do projeto
 
 ### Bloco 1.2: Sistema de Parsing Fundamental
-- [ ] Criar interface IFileParser com métodos parseFile() e detectSchema()
-- [ ] Implementar tipos ParseResult e SchemaVersion
-- [ ] Criar SchemaDetector para detectar JSON/XML e extrair versão
-- [ ] Implementar validação de formato de arquivo
+- [x] Criar interface IFileParser com métodos parseFile() e detectSchema()
+- [x] Implementar tipos ParseResult e SchemaVersion
+- [x] Criar SchemaDetector para detectar JSON e extrair versão
+- [x] Implementar validação de formato de arquivo
 
 ### Bloco 1.3: Modelos de Dados Core
 - [ ] Definir interfaces para Character, Trait, Skill, Spell
@@ -140,9 +140,9 @@ Plano detalhado para construção do visualizador mobile GURPS Character Sheet (
 ## 📊 Progresso Geral
 
 - **Total de tarefas:** 96
-- **Pendentes:** 78
+- **Pendentes:** 74
 - **Em progresso:** 0
-- **Concluídas:** 18
+- **Concluídas:** 22
 
 ## 🎯 Próximos Passos
 
