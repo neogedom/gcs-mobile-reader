@@ -1,0 +1,42 @@
+{
+  "Version": 5,
+  "id": "test_case_001",
+  "total_points": 250,
+  "points_record": [
+    {
+      "when": "2025-01-15T17:00:00-03:00",
+      "points": 250,
+      "reason": "Test file with uppercase Version field"
+    }
+  ],
+  "profile": {
+    "name": "Test Character Case Insensitive",
+    "age": "33",
+    "player_name": "Test Player"
+  },
+  "settings": {
+    "page": {
+      "paper_size": "a4",
+      "orientation": "portrait"
+    }
+  },
+  "attributes": [
+    {
+      "attr_id": "st",
+      "adj": 2,
+      "calc": {
+        "value": 12,
+        "points": 20
+      }
+    }
+  ],
+  "traits": [],
+  "skills": [],
+  "created_date": "2025-01-15T17:00:00-03:00",
+  "modified_date": "2025-01-15T17:00:00-03:00",
+  "calc": {
+    "basic_lift": "29 lb",
+    "move": [6, 4, 3, 2, 1],
+    "dodge": [9, 8, 7, 6, 5]
+  }
+}
