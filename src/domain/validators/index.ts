@@ -16,3 +16,6 @@
 // - SkillValidator
 // - SpellValidator
 // - TraitValidator
+
+// Para usar os validadores, importe diretamente dos arquivos específicos:
+// import { CharacterBasicValidator } from './CharacterBasicValidator';

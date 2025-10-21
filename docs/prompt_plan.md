@@ -321,7 +321,7 @@ Teste de aceitação:
 
 
 #### Prompt 1.3.2: Sistema de Validação de Tipos
-
+[x]
 ```
 Implemente sistema robusto de validação de tipos para os modelos criados.
 
@@ -347,6 +347,7 @@ Entregas esperadas:
 - /src/domain/guards/Trait.guard.ts
 - /src/domain/guards/Skill.guard.ts
 - /src/domain/guards/Spell.guard.ts
+- /src/domain/guards/Equipment.guard.ts
 
 Teste de aceitação:
 - Guards devem detectar objetos inválidos
