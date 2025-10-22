@@ -32,33 +32,39 @@ Com base na especificação técnica fornecida, apresento um plano completo de d
 
 ### Fase 2: Parsing e Interpretação de Dados
 
-**Bloco 2.1: Parsing de Entidades Simples**
+**Priorização para Entrega Rápida de Valor:** Para permitir que o app leia arquivos GCS o mais rápido possível, priorize o parsing básico de entidades essenciais (Character, Traits, Skills, Equipment) antes de avançar para funcionalidades complexas. Isso permite integração inicial com a UI (Fase 3) para visualização simples, entregando valor ao usuário. Os blocos avançados (2.3 e 2.4) podem ser adiados ou implementados em paralelo após o MVP.
 
+**Bloco 2.1: Parsing de Entidades Simples (Prioridade Alta)**
+
+- Parser para informações de personagem (básicas: id, name, total_points, attributes)
 - Parser para traits básicos
 - Parser para skills fundamentais
-- Parser para informações de personagem
 - Testes de parsing com arquivos exemplo
+- Integração inicial com modelos existentes (CharacterBasic, CharacterProfile, CharacterAttributes, Trait, Skill)
 
-**Bloco 2.2: Sistema de Containers**
+**Bloco 2.2: Sistema de Containers (Prioridade Média)**
 
-- Estrutura recursiva para containers
-- Parser de equipamentos com hierarquia
-- Algoritmo de navegação em árvore
+- Estrutura recursiva para containers de equipamentos
+- Parser de equipamentos com hierarquia básica
+- Algoritmo de navegação em árvore simples
 - Testes com containers aninhados
+- Focar em hierarquia de 2-3 níveis para MVP
 
-**Bloco 2.3: Campos Avançados**
+**Bloco 2.3: Campos Avançados (Prioridade Baixa - Adiar)**
 
 - Parser para features e modifiers
 - Sistema de conditions e reactions
 - Interpretação de prereqs
 - Campos de estudo e progresso
+- Implementar após MVP para refinar experiência
 
-**Bloco 2.4: Sistema de Bibliotecas**
+**Bloco 2.4: Sistema de Bibliotecas (Prioridade Baixa - Adiar)**
 
 - Carregamento de bibliotecas externas
 - Sistema de referência entre ficha e biblioteca
 - Detecção de customizações
 - Identificação de itens desatualizados
+- Considerar para versões futuras, não essencial para leitura básica
 
 ### Fase 3: Interface e Visualização
 
@@ -359,12 +365,47 @@ Teste de aceitação:
 
 ### FASE 2: PARSING E INTERPRETAÇÃO
 
-#### Prompt 2.1.1: Parser de Traits Básicos
+#### Prompt 2.1.1: Parser de Informações de Personagem (Prioridade Alta - Primeiro para MVP)
 
 ```
-Implemente parser para traits básicos de GURPS com TDD.
+Implemente parser para dados básicos do personagem com TDD. Este é o primeiro passo para permitir leitura de arquivos GCS.
 
-Contexto: Modelos e validadores prontos. SchemaDetector funcional. Agora parseamos traits reais.
+Contexto: Modelos básicos (CharacterBasic, CharacterProfile, CharacterAttributes) e validadores prontos. SchemaDetector funcional. Parseamos dados root do Character para entregar valor rápido.
+
+Requisitos:
+1. Criar CharacterParser em /src/data/parsers/CharacterParser.ts
+2. Implementar parseCharacter(data: unknown): CharacterBasic (usando modelo existente)
+3. Suportar campos essenciais:
+   - id, name, total_points (obrigatórios)
+   - player, campaign, created, modified (opcionais)
+   - attributes (ST, DX, IQ, HT) via CharacterAttributes
+4. Escrever testes PRIMEIRO com:
+   - Character completo com todos os campos
+   - Character mínimo (só obrigatórios)
+   - Character com attributes
+   - Dados inválidos (deve retornar erro, não crash)
+5. Integrar com validadores e guards existentes
+
+Entregas esperadas:
+- /tests/unit/data/parsers/CharacterParser.test.ts (primeiro!)
+- /tests/fixtures/character.json (dados de exemplo)
+- /src/data/parsers/CharacterParser.ts
+- Integração com modelos CharacterBasic, CharacterProfile, CharacterAttributes
+
+Teste de aceitação:
+- Parser deve criar objeto Character válido para visualização básica
+- Attributes devem ser parseados e validados
+- Parser deve ser robusto contra dados inválidos
+- Cobertura de testes > 90%
+```
+
+
+#### Prompt 2.1.2: Parser de Traits Básicos (Prioridade Alta)
+
+```
+Implemente parser para traits básicos de GURPS com TDD, construindo sobre o CharacterParser.
+
+Contexto: CharacterParser implementado. Modelos Trait e validadores prontos. Agora parseamos traits para enriquecer a visualização.
 
 Requisitos:
 1. Criar TraitParser em /src/data/parsers/TraitParser.ts
@@ -377,7 +418,7 @@ Requisitos:
    - Trait com campos opcionais ausentes
    - Trait malformado (deve retornar erro, não crash)
    - Array vazio
-5. Integrar com validadores criados anteriormente
+5. Integrar com validadores e guards de Trait
 
 Entregas esperadas:
 - /tests/unit/data/parsers/TraitParser.test.ts (primeiro!)
@@ -393,12 +434,12 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.1.2: Parser de Skills Fundamentais
+#### Prompt 2.1.3: Parser de Skills Fundamentais (Prioridade Alta)
 
 ```
 Implemente parser para skills de GURPS com TDD, seguindo padrão do TraitParser.
 
-Contexto: TraitParser já implementado e funcionando. Aplicar mesmo padrão para skills.
+Contexto: Parsers de Character e Trait funcionais. Modelo Skill pronto. Aplicar mesmo padrão para skills.
 
 Requisitos:
 1. Criar SkillParser em /src/data/parsers/SkillParser.ts
@@ -411,7 +452,7 @@ Requisitos:
    - Skills com diferentes attributes (DX, IQ, etc)
    - Skills com specialization
    - Dados inválidos
-5. Reutilizar padrões do TraitParser
+5. Reutilizar padrões do TraitParser e integrar com guards
 
 Entregas esperadas:
 - /tests/unit/data/parsers/SkillParser.test.ts (primeiro!)
@@ -422,105 +463,66 @@ Entregas esperadas:
 Teste de aceitação:
 - Parser deve processar todos os campos corretamente
 - Attributes devem ser validados
-- Padrão de código consistente com TraitParser
+- Padrão de código consistente com parsers anteriores
 - Cobertura de testes > 90%
 ```
 
 
-#### Prompt 2.1.3: Parser de Informações de Personagem
+#### Prompt 2.2.1: Estrutura de Dados para Containers (Prioridade Média)
 
 ```
-Implemente parser para dados básicos do personagem com TDD.
+Crie modelo de dados recursivo para containers (equipamentos hierárquicos) com TDD. Essencial para visualização de equipamentos aninhados.
 
-Contexto: Parsers de Trait e Skill funcionais. Agora parseamos dados root do Character.
+Contexto: Modelos básicos e parsers de Character/Traits/Skills prontos. Modelo Equipment já existe, mas precisa de suporte a recursividade.
 
 Requisitos:
-1. Criar CharacterParser em /src/data/parsers/CharacterParser.ts
-2. Implementar parseCharacter(data: unknown): Character
-3. Suportar campos:
-   - id, name, totalPoints (obrigatórios)
-   - player, campaign, created, modified (opcionais)
-   - attributes (ST, DX, IQ, HT)
-4. Escrever testes PRIMEIRO:
-   - Character completo com todos os campos
-   - Character mínimo (só obrigatórios)
-   - Character com attributes
-   - Dados inválidos
-5. Integrar com parsers anteriores
-
-Entregas esperadas:
-- /tests/unit/data/parsers/CharacterParser.test.ts (primeiro!)
-- /tests/fixtures/character.json
-- /src/data/parsers/CharacterParser.ts
-- Atualizar modelos se necessário
-
-Teste de aceitação:
-- Parser deve criar objeto Character válido (apenas campos básicos)
-- Attributes devem ser parseados corretamente
-- Parser deve lidar com campos opcionais
-- Integração com outros parsers funcional
-```
-
-
-#### Prompt 2.2.1: Estrutura de Dados para Containers
-
-```
-Crie modelo de dados recursivo para containers (equipamentos hierárquicos) com TDD.
-
-Contexto: Modelos básicos prontos. GURPS permite equipamentos dentro de equipamentos (mochila > frasco > poção).
-
-Requisitos:
-1. Criar Equipment model em /src/domain/models/Equipment.ts:
-   - id, name, quantity, weight, cost (obrigatórios)
-   - description, notes, equipped (opcionais)
+1. Atualizar Equipment model em /src/domain/models/Equipment.ts para suportar:
    - children: Equipment[] (para recursividade)
-   - isContainer: boolean
+   - isContainer: boolean (calculado automaticamente)
 2. Criar EquipmentTree helper em /src/domain/helpers/EquipmentTree.ts:
    - flatten(equipment: Equipment[]): Equipment[]
    - getDepth(equipment: Equipment): number
    - findById(tree: Equipment[], id: string): Equipment | null
 3. Escrever testes PRIMEIRO:
    - Equipment simples (sem filhos)
-   - Container com 1 nível de filhos
-   - Container com 3+ níveis (matrioska)
+   - Container com 1-2 níveis de filhos (para MVP)
    - Helper functions com casos limite
 
 Entregas esperadas:
 - /tests/unit/domain/models/Equipment.test.ts (primeiro!)
 - /tests/unit/domain/helpers/EquipmentTree.test.ts (primeiro!)
-- /src/domain/models/Equipment.ts
+- Atualizar /src/domain/models/Equipment.ts
 - /src/domain/helpers/EquipmentTree.ts
 - Diagrama de estrutura em comentários
 
 Teste de aceitação:
-- Modelo deve suportar recursão arbitrária
+- Modelo deve suportar recursão para equipamentos básicos
 - Helpers devem navegar árvore corretamente
-- getDepth deve calcular profundidade máxima
 - Performance adequada (< 10ms para 100 itens)
+- Integração com guard e validator existentes
 ```
 
 
-#### Prompt 2.2.2: Parser de Equipamentos com Hierarquia
+#### Prompt 2.2.2: Parser de Equipamentos com Hierarquia (Prioridade Média)
 
 ```
 Implemente parser recursivo para equipamentos e containers com TDD.
 
-Contexto: Equipment model e helpers prontos. Agora parseamos estruturas hierárquicas reais.
+Contexto: Equipment model e helpers atualizados. Agora parseamos estruturas hierárquicas para completar o parsing básico.
 
 Requisitos:
 1. Criar EquipmentParser em /src/data/parsers/EquipmentParser.ts
 2. Implementar parseEquipment(data: unknown): Equipment[]
 3. Parser deve:
-   - Processar recursivamente children
+   - Processar recursivamente children (até 2-3 níveis para MVP)
    - Validar integridade da árvore
    - Calcular peso total considerando children
-   - Marcar isContainer automaticamente se tem children
+   - Marcar isContainer automaticamente
 4. Escrever testes PRIMEIRO:
    - Lista simples de equipamentos
-   - Container com filhos
-   - Matrioska (3+ níveis)
+   - Container com 1-2 níveis
    - Container vazio
-   - Dados malformados (ciclo infinito impossível)
+   - Dados malformados
 5. Usar EquipmentTree helpers nos testes
 
 Entregas esperadas:
@@ -530,19 +532,19 @@ Entregas esperadas:
 - /src/data/parsers/EquipmentParser.ts
 
 Teste de aceitação:
-- Parser deve construir árvore correta
-- Recursão deve funcionar sem limite de profundidade
+- Parser deve construir árvore correta para casos comuns
+- Recursão deve funcionar para profundidade limitada
 - Parser não deve permitir ciclos
 - Testes devem verificar estrutura completa
 ```
 
 
-#### Prompt 2.2.3: Algoritmo de Navegação em Árvore
+#### Prompt 2.2.3: Algoritmo de Navegação em Árvore (Prioridade Média - Opcional para MVP)
 
 ```
 Implemente algoritmos eficientes de navegação na árvore de equipamentos.
 
-Contexto: EquipmentParser funcional. Precisamos de navegação para UI.
+Contexto: EquipmentParser funcional. Essencial para UI de drill-down, mas pode ser adiado se foco for em listas simples.
 
 Requisitos:
 1. Estender EquipmentTree helper com:
@@ -551,17 +553,16 @@ Requisitos:
    - getSiblings(tree: Equipment[], id: string): Equipment[]
    - getTotalWeight(equipment: Equipment): number (recursivo)
 2. Escrever testes PRIMEIRO:
-   - getPath para item profundo
+   - getPath para item em container
    - getParent para diferentes níveis
-   - getSiblings em diferentes contextos
-   - getTotalWeight para containers aninhados
+   - getSiblings em contextos simples
+   - getTotalWeight para containers
 3. Otimizar para performance
 
 Entregas esperadas:
 - /tests/unit/domain/helpers/EquipmentTree.navigation.test.ts (primeiro!)
 - Atualizar /src/domain/helpers/EquipmentTree.ts
 - Documentar complexidade algorítmica
-- Benchmarks de performance
 
 Teste de aceitação:
 - getPath deve retornar caminho completo
@@ -571,12 +572,14 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.3.1: Modelos para Features e Modifiers
+#### Prompt 2.3.1: Modelos para Features e Modifiers (Prioridade Baixa - Adiar para Pós-MVP)
+
+**Nota:** Estes modelos são avançados e não essenciais para leitura básica de arquivos GCS. Adiar implementação até que o MVP (parsing e visualização simples) esteja funcional.
 
 ```
 Crie modelos de dados para features, modifiers e conditions do GURPS com TDD.
 
-Contexto: Modelos básicos prontos. GURPS tem campos avançados que modificam traits/skills/etc.
+Contexto: Modelos básicos prontos. GURPS tem campos avançados que modificam traits/skills/etc. Implementar apenas se necessário para casos específicos.
 
 Requisitos:
 1. Criar models em /src/domain/models/:
@@ -611,7 +614,9 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.3.2: Parser de Features e Modifiers
+#### Prompt 2.3.2: Parser de Features e Modifiers (Prioridade Baixa - Adiar)
+
+**Nota:** Parser avançado. Implementar apenas após MVP para enriquecer dados.
 
 ```
 Implemente parsers para features e modifiers com TDD.
@@ -649,7 +654,9 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.3.3: Sistema de Prerequisites (Prereqs)
+#### Prompt 2.3.3: Sistema de Prerequisites (Prereqs) (Prioridade Baixa - Adiar)
+
+**Nota:** Funcionalidade avançada para validação de regras. Não essencial para leitura básica.
 
 ```
 Implemente sistema de prerequisites para traits/skills/spells com TDD.
@@ -687,7 +694,9 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.3.4: Parser de Campos de Estudo (Study)
+#### Prompt 2.3.4: Parser de Campos de Estudo (Study) (Prioridade Baixa - Adiar)
+
+**Nota:** Rastreamento de progresso é avançado. Adiar para versões futuras.
 
 ```
 Implemente parser para campos de estudo (study fields) com TDD.
@@ -724,12 +733,14 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.4.1: Sistema de Referência a Bibliotecas
+#### Prompt 2.4.1: Sistema de Referência a Bibliotecas (Prioridade Baixa - Adiar para Pós-MVP)
+
+**Nota:** Sistema de bibliotecas é útil para validação avançada, mas não essencial para leitura básica de arquivos GCS. Adiar até que o app suporte funcionalidades como detecção de customizações.
 
 ```
 Implemente sistema de carregamento e referência de bibliotecas externas com TDD.
 
-Contexto: Fichas referenciam itens de bibliotecas. Precisamos carregar e resolver referências.
+Contexto: Fichas referenciam itens de bibliotecas. Precisamos carregar e resolver referências. Implementar apenas se necessário para casos específicos.
 
 Requisitos:
 1. Criar Library model em /src/domain/models/Library.ts:
@@ -764,7 +775,9 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.4.2: Detecção de Customizações
+#### Prompt 2.4.2: Detecção de Customizações (Prioridade Baixa - Adiar)
+
+**Nota:** Detecção de customizações é uma feature avançada. Adiar para versões futuras focadas em validação.
 
 ```
 Implemente sistema de detecção de itens customizados com TDD.
@@ -801,7 +814,9 @@ Teste de aceitação:
 ```
 
 
-#### Prompt 2.4.3: Identificação de Itens Desatualizados
+#### Prompt 2.4.3: Identificação de Itens Desatualizados (Prioridade Baixa - Adiar)
+
+**Nota:** Verificação de versões é útil para manutenção, mas não para leitura inicial. Adiar.
 
 ```
 Implemente sistema de detecção de itens desatualizados com TDD.
@@ -838,6 +853,7 @@ Teste de aceitação:
 - Performance adequada
 ```
 
+**Próximos Passos Após FASE 2:** Com o parsing básico implementado (Prompts 2.1.1 a 2.2.2), o app já pode ler e processar arquivos GCS essenciais. Para entregar valor rápido, transite para FASE 3 (Interface e Visualização) para criar telas simples que exibam os dados parseados (Character, Traits, Skills, Equipment). Isso permite testar o parsing com UI real e disponibilizar o app para leitura básica. Os prompts adiados (2.3 e 2.4) podem ser implementados posteriormente para refinar a experiência.
 
 ### FASE 3: INTERFACE E VISUALIZAÇÃO
 
