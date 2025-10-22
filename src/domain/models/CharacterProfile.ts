@@ -35,7 +35,7 @@ export class CharacterProfile {
   /** Gênero */
   public readonly gender: string | null;
 
-  /** Altura em centímetros */
+  /** Altura em metros */
   public readonly height: number | null;
 
   /** Peso em quilogramas */

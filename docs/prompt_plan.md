@@ -388,7 +388,6 @@ Requisitos:
 
 Entregas esperadas:
 - /tests/unit/data/parsers/CharacterParser.test.ts (primeiro!)
-- /tests/fixtures/character.json (dados de exemplo)
 - /src/data/parsers/CharacterParser.ts
 - Integração com modelos CharacterBasic, CharacterProfile, CharacterAttributes
 
