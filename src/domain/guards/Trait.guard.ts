@@ -48,7 +48,11 @@ export function isTrait(obj: unknown): obj is Trait {
 
   // Valida description se presente
   if ('description' in trait) {
-    if (trait.description !== undefined && (typeof trait.description !== 'string' || trait.description.trim().length === 0)) {
+    if (
+      trait.description !== undefined &&
+      (typeof trait.description !== 'string' ||
+        trait.description.trim().length === 0)
+    ) {
       return false;
     }
   }

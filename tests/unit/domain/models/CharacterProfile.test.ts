@@ -5,7 +5,7 @@ describe('CharacterProfile', () => {
     it('deve criar CharacterProfile com dados mínimos', () => {
       const data = {
         name: 'Edy Wilmont',
-        playerName: 'Vinicius'
+        playerName: 'Vinicius',
       };
 
       const profile = new CharacterProfile(data);
@@ -30,7 +30,7 @@ describe('CharacterProfile', () => {
         gender: 'Male',
         height: 165,
         weight: 70,
-        techLevel: 3
+        techLevel: 3,
       };
 
       const profile = new CharacterProfile(data);
@@ -45,7 +45,7 @@ describe('CharacterProfile', () => {
     it('deve congelar o objeto após criação', () => {
       const profile = new CharacterProfile({
         name: 'Test',
-        playerName: 'Player'
+        playerName: 'Player',
       });
 
       expect(() => {
@@ -57,8 +57,8 @@ describe('CharacterProfile', () => {
   describe('validação de dados', () => {
     it('deve lançar erro com campos obrigatórios ausentes', () => {
       const invalidData = {
-        name: '',        // ❌ Inválido
-        playerName: ''   // ❌ Inválido
+        name: '', // ❌ Inválido
+        playerName: '', // ❌ Inválido
       };
 
       expect(() => new CharacterProfile(invalidData as any)).toThrow(
@@ -70,13 +70,13 @@ describe('CharacterProfile', () => {
       const profile = new CharacterProfile({
         name: 'Test',
         playerName: 'Player',
-        age: 0,        // ✅ Válido
-        height: 0,     // ✅ Válido
-        weight: 0      // ✅ Válido
+        age: 0, // ✅ Válido
+        height: 0, // ✅ Válido
+        weight: 0, // ✅ Válido
       });
 
       expect(profile.age).toBe(0);
-            expect(profile.height).toBe(0);
-          });
-        });
-      });
+      expect(profile.height).toBe(0);
+    });
+  });
+});

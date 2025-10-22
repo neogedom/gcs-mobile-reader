@@ -27,7 +27,12 @@ export function isSkill(obj: unknown): obj is Skill {
   const skill = obj as Record<string, unknown>;
 
   // Verifica campos obrigatórios
-  if (!('id' in skill) || !('name' in skill) || !('level' in skill) || !('difficulty' in skill)) {
+  if (
+    !('id' in skill) ||
+    !('name' in skill) ||
+    !('level' in skill) ||
+    !('difficulty' in skill)
+  ) {
     return false;
   }
 
@@ -47,7 +52,10 @@ export function isSkill(obj: unknown): obj is Skill {
   }
 
   // Valida difficulty
-  if (typeof skill.difficulty !== 'string' || skill.difficulty.trim().length === 0) {
+  if (
+    typeof skill.difficulty !== 'string' ||
+    skill.difficulty.trim().length === 0
+  ) {
     return false;
   }
 

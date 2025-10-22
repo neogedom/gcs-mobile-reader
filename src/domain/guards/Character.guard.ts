@@ -29,7 +29,11 @@ export function isCharacter(obj: unknown): obj is Character {
   const character = obj as Record<string, unknown>;
 
   // Verifica se tem as propriedades obrigatórias
-  if (!('basic' in character) || !('profile' in character) || !('attributes' in character)) {
+  if (
+    !('basic' in character) ||
+    !('profile' in character) ||
+    !('attributes' in character)
+  ) {
     return false;
   }
 

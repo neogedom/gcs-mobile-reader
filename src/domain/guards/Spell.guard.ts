@@ -27,7 +27,12 @@ export function isSpell(obj: unknown): obj is Spell {
   const spell = obj as Record<string, unknown>;
 
   // Verifica campos obrigatórios
-  if (!('id' in spell) || !('name' in spell) || !('level' in spell) || !('college' in spell)) {
+  if (
+    !('id' in spell) ||
+    !('name' in spell) ||
+    !('level' in spell) ||
+    !('college' in spell)
+  ) {
     return false;
   }
 

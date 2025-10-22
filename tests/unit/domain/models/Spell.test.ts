@@ -8,7 +8,7 @@ describe('Spell Model', () => {
         id: 'spell-001',
         name: 'Lightning',
         level: 3,
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act
@@ -28,7 +28,7 @@ describe('Spell Model', () => {
         id: 'spell-002',
         name: 'Fireball',
         level: 2,
-        college: 'Fire'
+        college: 'Fire',
       };
 
       // Act
@@ -49,11 +49,13 @@ describe('Spell Model', () => {
       const spellData = {
         name: 'Lightning',
         level: 3,
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Campo obrigatório ausente: id');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Campo obrigatório ausente: id'
+      );
     });
 
     it('deve lançar erro quando name está ausente', () => {
@@ -61,11 +63,13 @@ describe('Spell Model', () => {
       const spellData = {
         id: 'spell-001',
         level: 3,
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Campo obrigatório ausente: name');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Campo obrigatório ausente: name'
+      );
     });
 
     it('deve lançar erro quando level está ausente', () => {
@@ -73,11 +77,13 @@ describe('Spell Model', () => {
       const spellData = {
         id: 'spell-001',
         name: 'Lightning',
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Campo obrigatório ausente: level');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Campo obrigatório ausente: level'
+      );
     });
 
     it('deve lançar erro quando college está ausente', () => {
@@ -85,11 +91,13 @@ describe('Spell Model', () => {
       const spellData = {
         id: 'spell-001',
         name: 'Lightning',
-        level: 3
+        level: 3,
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Campo obrigatório ausente: college');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Campo obrigatório ausente: college'
+      );
     });
   });
 
@@ -100,11 +108,13 @@ describe('Spell Model', () => {
         id: 123,
         name: 'Lightning',
         level: 3,
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Tipo incorreto para o campo id: esperado string, recebido number');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Tipo incorreto para o campo id: esperado string, recebido number'
+      );
     });
 
     it('deve lançar erro quando name não é string', () => {
@@ -113,11 +123,13 @@ describe('Spell Model', () => {
         id: 'spell-001',
         name: 123,
         level: 3,
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Tipo incorreto para o campo name: esperado string, recebido number');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Tipo incorreto para o campo name: esperado string, recebido number'
+      );
     });
 
     it('deve lançar erro quando level não é number', () => {
@@ -126,11 +138,13 @@ describe('Spell Model', () => {
         id: 'spell-001',
         name: 'Lightning',
         level: '3',
-        college: 'Air'
+        college: 'Air',
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Tipo incorreto para o campo level: esperado number, recebido string');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Tipo incorreto para o campo level: esperado number, recebido string'
+      );
     });
 
     it('deve lançar erro quando college não é string', () => {
@@ -139,11 +153,13 @@ describe('Spell Model', () => {
         id: 'spell-001',
         name: 'Lightning',
         level: 3,
-        college: 123
+        college: 123,
       };
 
       // Act & Assert
-      expect(() => new Spell(spellData as any)).toThrow('Tipo incorreto para o campo college: esperado string, recebido number');
+      expect(() => new Spell(spellData as any)).toThrow(
+        'Tipo incorreto para o campo college: esperado string, recebido number'
+      );
     });
   });
 });

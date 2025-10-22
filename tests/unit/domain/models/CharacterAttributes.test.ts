@@ -8,7 +8,7 @@ describe('CharacterAttributes', () => {
         st: 10,
         dx: 12,
         iq: 14,
-        ht: 11
+        ht: 11,
       };
 
       const attributes = new CharacterAttributes(data);
@@ -18,7 +18,7 @@ describe('CharacterAttributes', () => {
       expect(attributes.iq).toBe(14);
       expect(attributes.ht).toBe(11);
       expect(attributes.will).toBe(14); // Deve ser igual ao IQ por padrão
-      expect(attributes.per).toBe(14);  // Deve ser igual ao IQ por padrão
+      expect(attributes.per).toBe(14); // Deve ser igual ao IQ por padrão
     });
 
     it('deve criar CharacterAttributes com todos os dados', () => {
@@ -33,7 +33,7 @@ describe('CharacterAttributes', () => {
         basicMove: 6,
         hitPoints: 18,
         fatiguePoints: 16,
-        magicPoints: 8
+        magicPoints: 8,
       };
 
       const attributes = new CharacterAttributes(data);
@@ -56,7 +56,7 @@ describe('CharacterAttributes', () => {
         st: 10,
         dx: 12,
         iq: 14,
-        ht: 11
+        ht: 11,
       };
 
       const attributes = new CharacterAttributes(data);
@@ -76,7 +76,7 @@ describe('CharacterAttributes', () => {
         st: 10,
         dx: 12,
         iq: 14,
-        ht: 11
+        ht: 11,
       });
 
       expect(() => {
@@ -89,10 +89,10 @@ describe('CharacterAttributes', () => {
   describe('validação de dados', () => {
     it('deve lançar erro com atributos básicos inválidos', () => {
       const invalidData = {
-        st: 0,     // ❌ Inválido - deve ser > 0
-        dx: -1,    // ❌ Inválido - deve ser > 0
-        iq: 0,     // ❌ Inválido - deve ser > 0
-        ht: -5     // ❌ Inválido - deve ser > 0
+        st: 0, // ❌ Inválido - deve ser > 0
+        dx: -1, // ❌ Inválido - deve ser > 0
+        iq: 0, // ❌ Inválido - deve ser > 0
+        ht: -5, // ❌ Inválido - deve ser > 0
       };
 
       expect(() => new CharacterAttributes(invalidData as any)).toThrow();
@@ -103,7 +103,7 @@ describe('CharacterAttributes', () => {
         st: 1,
         dx: 1,
         iq: 1,
-        ht: 1
+        ht: 1,
       });
 
       expect(attributes.st).toBe(1);
@@ -119,7 +119,7 @@ describe('CharacterAttributes', () => {
         iq: 14,
         ht: 11,
         will: 16,
-        per: 13
+        per: 13,
       });
 
       expect(attributes.will).toBe(16);
@@ -135,7 +135,7 @@ describe('CharacterAttributes', () => {
         basicSpeed: 6.0,
         basicMove: 6,
         hitPoints: 15,
-        fatiguePoints: 12
+        fatiguePoints: 12,
       });
 
       expect(attributes.basicSpeed).toBe(6.0);
@@ -153,7 +153,7 @@ describe('CharacterAttributes', () => {
       iq: 12,
       ht: 14,
       will: 15,
-      per: 16
+      per: 16,
     });
 
     const attributes2 = new CharacterAttributes({
@@ -162,14 +162,14 @@ describe('CharacterAttributes', () => {
       iq: 12,
       ht: 14,
       will: 15,
-      per: 16
+      per: 16,
     });
 
     const attributes3 = new CharacterAttributes({
       st: 14,
       dx: 12,
       iq: 13,
-      ht: 15
+      ht: 15,
     });
 
     it('deve identificar atributos iguais', () => {
@@ -188,10 +188,12 @@ describe('CharacterAttributes', () => {
         dx: 13,
         iq: 12,
         ht: 14,
-        magicPoints: 8
+        magicPoints: 8,
       });
 
-      expect(attributes.toString()).toBe('Attributes{ST:15 DX:13 IQ:12 HT:14 HP:15 FP:14 MP:8}');
+      expect(attributes.toString()).toBe(
+        'Attributes{ST:15 DX:13 IQ:12 HT:14 HP:15 FP:14 MP:8}'
+      );
     });
 
     it('deve gerar representação sem magic points quando não definido', () => {
@@ -199,10 +201,12 @@ describe('CharacterAttributes', () => {
         st: 10,
         dx: 12,
         iq: 14,
-        ht: 11
+        ht: 11,
       });
 
-      expect(attributes.toString()).toBe('Attributes{ST:10 DX:12 IQ:14 HT:11 HP:10 FP:11}');
+      expect(attributes.toString()).toBe(
+        'Attributes{ST:10 DX:12 IQ:14 HT:11 HP:10 FP:11}'
+      );
     });
   });
 
@@ -213,7 +217,7 @@ describe('CharacterAttributes', () => {
         st: 50,
         dx: 50,
         iq: 50,
-        ht: 50
+        ht: 50,
       });
 
       expect(attributes.st).toBe(50);
@@ -229,7 +233,7 @@ describe('CharacterAttributes', () => {
         st: 1,
         dx: 1,
         iq: 1,
-        ht: 1
+        ht: 1,
       });
 
       expect(attributes.st).toBe(1);

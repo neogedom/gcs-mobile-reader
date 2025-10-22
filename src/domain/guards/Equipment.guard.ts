@@ -41,7 +41,10 @@ export function isEquipment(obj: unknown): obj is Equipment {
   }
 
   // Valida name
-  if (typeof equipment.name !== 'string' || equipment.name.trim().length === 0) {
+  if (
+    typeof equipment.name !== 'string' ||
+    equipment.name.trim().length === 0
+  ) {
     return false;
   }
 

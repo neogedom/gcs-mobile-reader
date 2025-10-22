@@ -9,7 +9,7 @@ describe('Equipment', () => {
         name: 'Espada Longa',
         quantity: 1,
         weight: 3,
-        cost: 500
+        cost: 500,
       };
 
       const equipment = new Equipment(data);
@@ -26,7 +26,7 @@ describe('Equipment', () => {
     it('deve criar Equipment com valores padrão', () => {
       const data = {
         id: 'potion-001',
-        name: 'Poção de Vida'
+        name: 'Poção de Vida',
       };
 
       const equipment = new Equipment(data);
@@ -43,7 +43,7 @@ describe('Equipment', () => {
         id: 'gem-001',
         name: 'Gema Mágica',
         weight: 0.1,
-        cost: 1000
+        cost: 1000,
       });
 
       const data = {
@@ -51,7 +51,7 @@ describe('Equipment', () => {
         name: 'Espada com Gema',
         weight: 3,
         cost: 1500,
-        children: [childEquipment]
+        children: [childEquipment],
       };
 
       const equipment = new Equipment(data);
@@ -59,7 +59,7 @@ describe('Equipment', () => {
       expect(equipment.children).toHaveLength(1);
       expect(equipment.children![0].name).toBe('Gema Mágica');
       expect(equipment.totalWeight).toBe(3.1); // 3 + 0.1
-      expect(equipment.totalCost).toBe(2500);   // 1500 + 1000
+      expect(equipment.totalCost).toBe(2500); // 1500 + 1000
     });
 
     it('deve criar Equipment com múltiplos filhos', () => {
@@ -68,14 +68,14 @@ describe('Equipment', () => {
         name: 'Flecha',
         quantity: 20,
         weight: 0.1,
-        cost: 2
+        cost: 2,
       });
 
       const equipment2 = new Equipment({
         id: 'bow-001',
         name: 'Arco',
         weight: 2,
-        cost: 100
+        cost: 100,
       });
 
       const quiver = new Equipment({
@@ -83,17 +83,17 @@ describe('Equipment', () => {
         name: 'Aljava com Flechas',
         weight: 1,
         cost: 50,
-        children: [equipment1, equipment2]
+        children: [equipment1, equipment2],
       });
 
-      expect(quiver.totalWeight).toBe(5);   // 1 + (20 * 0.1) + 2
-      expect(quiver.totalCost).toBe(190);   // 50 + (20 * 2) + 100
+      expect(quiver.totalWeight).toBe(5); // 1 + (20 * 0.1) + 2
+      expect(quiver.totalCost).toBe(190); // 50 + (20 * 2) + 100
     });
 
     it('deve congelar o objeto após criação', () => {
       const equipment = new Equipment({
         id: 'test-equipment',
-        name: 'Equipamento de Teste'
+        name: 'Equipamento de Teste',
       });
 
       expect(() => {
@@ -106,11 +106,11 @@ describe('Equipment', () => {
   describe('validação de dados', () => {
     it('deve lançar erro com dados inválidos', () => {
       const invalidData = {
-        id: '',           // ❌ Inválido - vazio
-        name: '',         // ❌ Inválido - vazio
-        quantity: 0,      // ❌ Inválido - deve ser > 0
-        weight: -1,       // ❌ Inválido - não pode ser negativo
-        cost: -50         // ❌ Inválido - não pode ser negativo
+        id: '', // ❌ Inválido - vazio
+        name: '', // ❌ Inválido - vazio
+        quantity: 0, // ❌ Inválido - deve ser > 0
+        weight: -1, // ❌ Inválido - não pode ser negativo
+        cost: -50, // ❌ Inválido - não pode ser negativo
       };
 
       expect(() => new Equipment(invalidData as any)).toThrow();
@@ -122,7 +122,7 @@ describe('Equipment', () => {
         name: 'Equipamento Mínimo',
         quantity: 1,
         weight: 0,
-        cost: 0
+        cost: 0,
       });
 
       expect(equipment.quantity).toBe(1);
@@ -133,13 +133,13 @@ describe('Equipment', () => {
     it('deve aceitar equipamentos filhos válidos', () => {
       const child = new Equipment({
         id: 'child-equipment',
-        name: 'Equipamento Filho'
+        name: 'Equipamento Filho',
       });
 
       const parent = new Equipment({
         id: 'parent-equipment',
         name: 'Equipamento Pai',
-        children: [child]
+        children: [child],
       });
 
       expect(parent.children).toHaveLength(1);
@@ -153,21 +153,21 @@ describe('Equipment', () => {
       id: 'test-equipment',
       name: 'Equipamento de Teste',
       weight: 5,
-      cost: 100
+      cost: 100,
     });
 
     const equipment2 = new Equipment({
       id: 'test-equipment',
       name: 'Equipamento de Teste',
       weight: 5,
-      cost: 100
+      cost: 100,
     });
 
     const equipment3 = new Equipment({
       id: 'different-equipment',
       name: 'Equipamento Diferente',
       weight: 10,
-      cost: 200
+      cost: 200,
     });
 
     it('deve identificar equipamentos iguais', () => {
@@ -183,24 +183,24 @@ describe('Equipment', () => {
     it('deve comparar equipamentos com filhos', () => {
       const child1 = new Equipment({
         id: 'child-1',
-        name: 'Filho 1'
+        name: 'Filho 1',
       });
 
       const child2 = new Equipment({
         id: 'child-1',
-        name: 'Filho 1'
+        name: 'Filho 1',
       });
 
       const parent1 = new Equipment({
         id: 'parent',
         name: 'Pai',
-        children: [child1]
+        children: [child1],
       });
 
       const parent2 = new Equipment({
         id: 'parent',
         name: 'Pai',
-        children: [child2]
+        children: [child2],
       });
 
       expect(parent1.equals(parent2)).toBe(true);
@@ -212,10 +212,12 @@ describe('Equipment', () => {
         name: 'Espada Mágica',
         quantity: 1,
         weight: 3,
-        cost: 1000
+        cost: 1000,
       });
 
-      expect(equipment.toString()).toBe('Equipment{"Espada Mágica" 3lbs $1000}');
+      expect(equipment.toString()).toBe(
+        'Equipment{"Espada Mágica" 3lbs $1000}'
+      );
     });
 
     it('deve gerar representação com quantidade', () => {
@@ -224,7 +226,7 @@ describe('Equipment', () => {
         name: 'Flechas',
         quantity: 20,
         weight: 0.1,
-        cost: 2
+        cost: 2,
       });
 
       expect(equipment.toString()).toBe('Equipment{"Flechas" (x20) 2lbs $40}');
@@ -233,16 +235,18 @@ describe('Equipment', () => {
     it('deve gerar representação com filhos', () => {
       const child = new Equipment({
         id: 'gem',
-        name: 'Gema'
+        name: 'Gema',
       });
 
       const equipment = new Equipment({
         id: 'sword-with-gem',
         name: 'Espada com Gema',
-        children: [child]
+        children: [child],
       });
 
-      expect(equipment.toString()).toBe('Equipment{"Espada com Gema" +1 itens}');
+      expect(equipment.toString()).toBe(
+        'Equipment{"Espada com Gema" +1 itens}'
+      );
     });
   });
 
@@ -252,20 +256,20 @@ describe('Equipment', () => {
       const child1 = new Equipment({
         id: 'child-1',
         name: 'Filho 1',
-        weight: 2
+        weight: 2,
       });
 
       const child2 = new Equipment({
         id: 'child-2',
         name: 'Filho 2',
-        weight: 3
+        weight: 3,
       });
 
       const parent = new Equipment({
         id: 'parent',
         name: 'Pai',
         weight: 1,
-        children: [child1, child2]
+        children: [child1, child2],
       });
 
       expect(parent.totalWeight).toBe(6); // 1 + 2 + 3
@@ -275,20 +279,20 @@ describe('Equipment', () => {
       const child1 = new Equipment({
         id: 'child-1',
         name: 'Filho 1',
-        cost: 100
+        cost: 100,
       });
 
       const child2 = new Equipment({
         id: 'child-2',
         name: 'Filho 2',
-        cost: 200
+        cost: 200,
       });
 
       const parent = new Equipment({
         id: 'parent',
         name: 'Pai',
         cost: 50,
-        children: [child1, child2]
+        children: [child1, child2],
       });
 
       expect(parent.totalCost).toBe(350); // 50 + 100 + 200
@@ -299,7 +303,7 @@ describe('Equipment', () => {
         id: 'child',
         name: 'Filho',
         weight: 1,
-        cost: 10
+        cost: 10,
       });
 
       const parent = new Equipment({
@@ -308,29 +312,29 @@ describe('Equipment', () => {
         quantity: 3,
         weight: 2,
         cost: 20,
-        children: [child]
+        children: [child],
       });
 
-      expect(parent.totalWeight).toBe(9);  // (2 * 3) + (1 * 3) = 6 + 3 = 9
-      expect(parent.totalCost).toBe(90);   // (20 * 3) + (10 * 3) = 60 + 30 = 90
+      expect(parent.totalWeight).toBe(9); // (2 * 3) + (1 * 3) = 6 + 3 = 9
+      expect(parent.totalCost).toBe(90); // (20 * 3) + (10 * 3) = 60 + 30 = 90
     });
 
     it('deve retornar lista de todos os filhos recursivamente', () => {
       const grandchild = new Equipment({
         id: 'grandchild',
-        name: 'Neto'
+        name: 'Neto',
       });
 
       const child = new Equipment({
         id: 'child',
         name: 'Filho',
-        children: [grandchild]
+        children: [grandchild],
       });
 
       const parent = new Equipment({
         id: 'parent',
         name: 'Pai',
-        children: [child]
+        children: [child],
       });
 
       const allChildren = parent.allChildren;
@@ -342,7 +346,7 @@ describe('Equipment', () => {
     it('deve retornar array vazio quando não há filhos', () => {
       const equipment = new Equipment({
         id: 'no-children',
-        name: 'Sem Filhos'
+        name: 'Sem Filhos',
       });
 
       expect(equipment.allChildren).toEqual([]);
@@ -354,32 +358,36 @@ describe('Equipment', () => {
     it('deve aceitar nomes com caracteres especiais', () => {
       const equipment = new Equipment({
         id: 'special-chars',
-        name: 'Equipamento com Çaracteres Éspeciais e Núm3r0s!'
+        name: 'Equipamento com Çaracteres Éspeciais e Núm3r0s!',
       });
 
-      expect(equipment.name).toBe('Equipamento com Çaracteres Éspeciais e Núm3r0s!');
+      expect(equipment.name).toBe(
+        'Equipamento com Çaracteres Éspeciais e Núm3r0s!'
+      );
     });
 
     it('deve aceitar equipamentos com muitos filhos', () => {
       const children = [];
       for (let i = 0; i < 100; i++) {
-        children.push(new Equipment({
-          id: `child-${i}`,
-          name: `Filho ${i}`,
-          weight: 0.1,
-          cost: 1
-        }));
+        children.push(
+          new Equipment({
+            id: `child-${i}`,
+            name: `Filho ${i}`,
+            weight: 0.1,
+            cost: 1,
+          })
+        );
       }
 
       const parent = new Equipment({
         id: 'parent-many-children',
         name: 'Pai com Muitos Filhos',
-        children
+        children,
       });
 
       expect(parent.children).toHaveLength(100);
       expect(parent.totalWeight).toBe(10); // 100 * 0.1 (arredondado)
-      expect(parent.totalCost).toBe(100);  // 100 * 1
+      expect(parent.totalCost).toBe(100); // 100 * 1
     });
   });
 });

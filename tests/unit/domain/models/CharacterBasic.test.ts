@@ -9,7 +9,7 @@ describe('CharacterBasic', () => {
         id: 'test-id-123',
         totalPoints: 150,
         createdDate: '2025-01-01T10:00:00Z',
-        modifiedDate: '2025-01-02T10:00:00Z'
+        modifiedDate: '2025-01-02T10:00:00Z',
       };
 
       const character = new CharacterBasic(data);
@@ -27,7 +27,7 @@ describe('CharacterBasic', () => {
         id: 'test-id',
         totalPoints: 100,
         createdDate: '2025-01-01T00:00:00Z',
-        modifiedDate: '2025-01-01T00:00:00Z'
+        modifiedDate: '2025-01-01T00:00:00Z',
       });
 
       expect(() => {
@@ -40,11 +40,11 @@ describe('CharacterBasic', () => {
   describe('validação de dados', () => {
     it('deve lançar erro com múltiplos campos inválidos', () => {
       const invalidData = {
-        version: -1,        // ❌ Inválido
-        id: '',            // ❌ Inválido
-        totalPoints: -10,   // ❌ Inválido
-        createdDate: '',   // ❌ Inválido
-        modifiedDate: ''   // ❌ Inválido
+        version: -1, // ❌ Inválido
+        id: '', // ❌ Inválido
+        totalPoints: -10, // ❌ Inválido
+        createdDate: '', // ❌ Inválido
+        modifiedDate: '', // ❌ Inválido
       };
 
       expect(() => new CharacterBasic(invalidData as any)).toThrow(
@@ -56,9 +56,9 @@ describe('CharacterBasic', () => {
       const character = new CharacterBasic({
         version: 5,
         id: 'zero-points',
-        totalPoints: 0,     // ✅ Válido
+        totalPoints: 0, // ✅ Válido
         createdDate: '2025-01-01T00:00:00Z',
-        modifiedDate: '2025-01-01T00:00:00Z'
+        modifiedDate: '2025-01-01T00:00:00Z',
       });
 
       expect(character.totalPoints).toBe(0);
@@ -72,7 +72,7 @@ describe('CharacterBasic', () => {
       id: 'test-id',
       totalPoints: 150,
       createdDate: '2025-01-01T00:00:00Z',
-      modifiedDate: '2025-01-01T00:00:00Z'
+      modifiedDate: '2025-01-01T00:00:00Z',
     });
 
     const character2 = new CharacterBasic({
@@ -80,7 +80,7 @@ describe('CharacterBasic', () => {
       id: 'test-id',
       totalPoints: 150,
       createdDate: '2025-01-01T00:00:00Z',
-      modifiedDate: '2025-01-01T00:00:00Z'
+      modifiedDate: '2025-01-01T00:00:00Z',
     });
 
     const character3 = new CharacterBasic({
@@ -88,7 +88,7 @@ describe('CharacterBasic', () => {
       id: 'different-id',
       totalPoints: 200,
       createdDate: '2025-01-01T00:00:00Z',
-      modifiedDate: '2025-01-01T00:00:00Z'
+      modifiedDate: '2025-01-01T00:00:00Z',
     });
 
     it('deve identificar personagens iguais', () => {
@@ -102,7 +102,9 @@ describe('CharacterBasic', () => {
     });
 
     it('deve gerar representação em string correta', () => {
-      expect(character1.toString()).toBe('CharacterBasic{v5 "test-id" - 150pts}');
+      expect(character1.toString()).toBe(
+        'CharacterBasic{v5 "test-id" - 150pts}'
+      );
     });
   });
 
@@ -111,10 +113,10 @@ describe('CharacterBasic', () => {
     it('deve validar tipos extremos de ID', () => {
       const character = new CharacterBasic({
         version: 5,
-        id: 'a',  // ✅ ID mínimo válido
+        id: 'a', // ✅ ID mínimo válido
         totalPoints: 100,
         createdDate: '2025-01-01T00:00:00Z',
-        modifiedDate: '2025-01-01T00:00:00Z'
+        modifiedDate: '2025-01-01T00:00:00Z',
       });
 
       expect(character.id).toBe('a');
@@ -126,7 +128,7 @@ describe('CharacterBasic', () => {
         id: 'test_id-123.456',
         totalPoints: 100,
         createdDate: '2025-01-01T00:00:00Z',
-        modifiedDate: '2025-01-01T00:00:00Z'
+        modifiedDate: '2025-01-01T00:00:00Z',
       });
 
       expect(character.id).toBe('test_id-123.456');

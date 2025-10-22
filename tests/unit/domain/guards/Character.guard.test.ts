@@ -200,7 +200,11 @@ describe('isCharacter', () => {
         ht: 10,
       });
 
-      const character = { basic: null as any, profile, attributes };
+      const character = {
+        basic: null as unknown as CharacterBasic,
+        profile,
+        attributes,
+      };
 
       expect(isCharacter(character)).toBe(false);
     });
@@ -221,7 +225,11 @@ describe('isCharacter', () => {
         ht: 10,
       });
 
-      const character = { basic, profile: undefined as any, attributes };
+      const character = {
+        basic,
+        profile: undefined as unknown as CharacterProfile,
+        attributes,
+      };
 
       expect(isCharacter(character)).toBe(false);
     });
@@ -240,7 +248,11 @@ describe('isCharacter', () => {
         playerName: 'Test Player',
       });
 
-      const character = { basic, profile, attributes: undefined as any };
+      const character = {
+        basic,
+        profile,
+        attributes: undefined as unknown as CharacterAttributes,
+      };
 
       expect(isCharacter(character)).toBe(false);
     });
