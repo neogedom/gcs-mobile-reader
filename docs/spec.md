@@ -12,7 +12,7 @@ O aplicativo mobile GCS (GURPS Character Sheet) será um **visualizador e leitor
 
 1. **Suporte a Formato de Arquivo**
     - Importação, leitura e renderização de arquivos .gcs (ficha de personagem).
-    - Carregamento de múltiplas bibliotecas (oficiais e customizadas, sem edição).
+    - Carregamento de múltiplas bibliotecas (oficiais e customizadas).
     - Detecção automática do schema/versão para futuras evoluções.
 2. **Visualização de Dados**
     - Renderizar todos os blocos e estruturas presentes no arquivo, incluindo:
@@ -44,7 +44,11 @@ O aplicativo mobile GCS (GURPS Character Sheet) será um **visualizador e leitor
 ### Arquitetura Proposta
 
 - **Frontend:** Flutter, React Native, Kotlin/Swift ou framework multiplataforma, priorizando legibilidade, desempenho e desacoplamento da camada de parsing.
-- **Backend (app):** Parsing local dos arquivos .gcs (JSON conforme padrão do GCS) com abstração em classes/structs.
+- **Backend (app):** Parsing local dos arquivos .gcs (JSON conforme padrão do GCS) com abstração em classes/structs seguindo arquitetura modular.
+- **Arquitetura de Dados:** Modelo modular onde cada entidade é tratada de forma independente:
+  - **Character (Core):** Responsável apenas por version, id, total_points, created_date, modified_date
+  - **Sub-entidades:** CharacterProfile, CharacterSettings, CharacterAttributes, CharacterPointsRecord, CharacterCalc
+  - **Entidades Independentes:** Trait, Skill, Spell, Equipment, Ancestry
 - **Gerenciamento de Estado:** Pode ser Redux/MobX/Provider/Bloc ou equivalente do framework escolhido.
 - **Persistência:** Armazenamento local dos arquivos impressos/importados pelo usuário (pasta sandboxed).
 

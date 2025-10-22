@@ -1,6 +1,6 @@
-# Arquivos de Teste do SchemaDetector
+# Arquivos de Teste do SchemaDetector e Modelos de Dados Modulares
 
-Este diretório contém arquivos de exemplo para testar o `SchemaDetector`. Cada arquivo representa um cenário específico de teste.
+Este diretório contém arquivos de exemplo para testar o `SchemaDetector` e os modelos de dados modulares. Cada arquivo representa um cenário específico de teste, seguindo a arquitetura onde cada entidade é tratada de forma independente.
 
 ## Arquivos Obrigatórios
 
@@ -59,12 +59,42 @@ Este diretório contém arquivos de exemplo para testar o `SchemaDetector`. Cada
 ## Estrutura dos Arquivos
 
 Todos os arquivos seguem a estrutura básica GCS com:
-- Campos básicos (id, total_points, points_record)
+- Campos básicos (version, id, total_points, created_date, modified_date)
+- Registro de pontos (points_record)
 - Perfil do personagem (profile)
 - Configurações (settings)
 - Atributos (attributes)
 - Traits e skills (vazios para simplicidade)
+- Equipamentos (equipment)
 - Dados de cálculo (calc)
+
+## Arquitetura Modular de Testes
+
+Os testes seguem a arquitetura modular proposta onde cada entidade é tratada de forma independente:
+
+### Modelo Core (Campos Básicos)
+- **Character**: Responsável apenas por version, id, total_points, created_date, modified_date
+
+### Sub-Entidades Modulares (Campos Específicos)
+- **CharacterProfile**: Dados do perfil (name, player_name, age, height, weight, etc.)
+- **CharacterSettings**: Configurações (page, block_layout, attributes, body_type, etc.)
+- **CharacterAttributes**: Atributos básicos (st, dx, iq, ht, will, per, etc.)
+- **CharacterPointsRecord**: Registro de pontos ao longo do tempo
+- **CharacterCalc**: Dados calculados (swing, thrust, basic_lift, move, dodge)
+
+### Entidades Independentes
+- **Trait**: Traits/advantages/disadvantages independentemente
+- **Skill**: Skills independentemente
+- **Spell**: Spells independentemente
+- **Equipment**: Equipamentos e containers hierárquicos
+- **Ancestry**: Ancestries e características raciais
+
+### Modelos Adicionais Necessários (Para Arquitetura Completa)
+- **CharacterProfile**: Dados do perfil (name, player_name, age, height, weight, etc.)
+- **CharacterSettings**: Configurações (page, block_layout, attributes, body_type, etc.)
+- **CharacterAttributes**: Atributos básicos (st, dx, iq, ht, will, per, etc.)
+- **CharacterPointsRecord**: Registro de pontos ao longo do tempo
+- **CharacterCalc**: Dados calculados (swing, thrust, basic_lift, move, dodge)
 
 ## Uso nos Testes
 

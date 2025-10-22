@@ -20,12 +20,15 @@ Com base na especificação técnica fornecida, apresento um plano completo de d
 - Detecção de schema e versão do arquivo
 - Sistema de validação de formato
 
-**Bloco 1.3: Modelos de Dados Core**
+**Bloco 1.3: Modelos de Dados Modulares**
 
-- Definição de interfaces/classes para entidades básicas
-- Estruturas para Character, Trait, Skill, Spell
-- Sistema de tipos e validações
-- Testes de serialização/deserialização
+- Definição de interfaces/classes para entidades básicas seguindo arquitetura modular
+- **Modelo Core:** Character responsável apenas por version, id, total_points, created_date, modified_date
+- **Sub-entidades modulares:** CharacterProfile, CharacterSettings, CharacterAttributes, CharacterPointsRecord, CharacterCalc
+- **Modelos independentes:** Trait, Skill, Spell, Equipment, Ancestry
+- Sistema de tipos e validações para cada entidade independente
+- Testes de serialização/deserialização para cada modelo
+- Arquitetura que facilita parsers futuros e manutenção
 
 ### Fase 2: Parsing e Interpretação de Dados
 
@@ -154,7 +157,7 @@ A seguir, apresento os prompts organizados sequencialmente, cada um construindo 
 ### FASE 1: FUNDAÇÕES E INFRAESTRUTURA
 
 #### Prompt 1.1.1: Inicialização do Projeto
-
+[x] 
 ```
 Crie a estrutura inicial de um projeto React Native/TypeScript para um aplicativo mobile de visualização de fichas GURPS Character Sheet (.gcs).
 
@@ -183,7 +186,7 @@ Teste de aceitação:
 ```
 
 #### Prompt 1.1.2: Configuração de CI/CD Básico
-
+[x] 
 ```
 Configure um pipeline básico de CI/CD para o projeto React Native iniciado no prompt 1.1.1.
 
@@ -211,7 +214,7 @@ Teste de aceitação:
 ```
 
 #### Prompt 1.2.1: Interface Base do Parser
-
+[x] 
 ```
 Crie a camada de abstração para parsing de arquivos .gcs com TDD.
 
@@ -239,9 +242,8 @@ Teste de aceitação:
 - Tipos devem estar bem definidos
 ```
 
-
 #### Prompt 1.2.2: Detecção de Schema e Versão
-
+[x] 
 ```
 Implemente o detector de schema e versão para arquivos .gcs com TDD.
 
@@ -274,17 +276,21 @@ Teste de aceitação:
 
 
 #### Prompt 1.3.1: Modelos de Dados Básicos
+[x]
 ```
 Crie os modelos de dados fundamentais para entidades GURPS com TDD.
 
 Contexto: Parser e detector prontos. Precisamos definir estruturas de dados core.
 
 Requisitos:
-1. Criar interfaces em /src/domain/models/:
-   - Character.ts (id, name, points, basicInfo)
-   - Trait.ts (id, name, cost, description)
-   - Skill.ts (id, name, level, difficulty)
-   - Spell.ts (id, name, level, college)
+1. Criar modelos modulares em /src/domain/models/:
+   - Character.ts (version, id, total_points, created_date, modified_date)
+   - CharacterProfile.ts (name, player_name, age, height, weight, etc)
+   - CharacterAttributes.ts (st, dx, iq, ht, will, per, etc)
+   - Trait.ts (id, name, cost, description, modifiers, features)
+   - Skill.ts (id, name, level, difficulty, attribute, specialization)
+   - Spell.ts (id, name, level, college, cost, time, duration)
+   - Equipment.ts (id, name, quantity, weight, cost, children)
 2. Todas as interfaces devem ter:
    - Campos obrigatórios bem definidos
    - Campos opcionais marcados com ?
@@ -296,10 +302,13 @@ Requisitos:
    - Tipos incorretos
 
 Entregas esperadas:
-- /src/domain/models/Character.ts
+- /src/domain/models/CharacterBasic.ts (container principal)
+- /src/domain/models/CharacterProfile.ts
+- /src/domain/models/CharacterAttributes.ts
 - /src/domain/models/Trait.ts
 - /src/domain/models/Skill.ts
 - /src/domain/models/Spell.ts
+- /src/domain/models/Equipment.ts
 - /tests/unit/domain/models/*.test.ts (primeiro!)
 - /src/domain/validators/*.ts
 
@@ -312,11 +321,11 @@ Teste de aceitação:
 
 
 #### Prompt 1.3.2: Sistema de Validação de Tipos
-
+[x]
 ```
 Implemente sistema robusto de validação de tipos para os modelos criados.
 
-Contexto: Modelos básicos (Character, Trait, Skill, Spell) já existem. Precisamos validar dados parseados.
+Contexto: Modelos básicos (Character, Trait, Skill, Spell, Equipment) já existem. Precisamos validar dados parseados.
 
 Requisitos:
 1. Criar TypeGuards em /src/domain/guards/:
@@ -338,6 +347,7 @@ Entregas esperadas:
 - /src/domain/guards/Trait.guard.ts
 - /src/domain/guards/Skill.guard.ts
 - /src/domain/guards/Spell.guard.ts
+- /src/domain/guards/Equipment.guard.ts
 
 Teste de aceitação:
 - Guards devem detectar objetos inválidos
@@ -442,10 +452,10 @@ Entregas esperadas:
 - /tests/unit/data/parsers/CharacterParser.test.ts (primeiro!)
 - /tests/fixtures/character.json
 - /src/data/parsers/CharacterParser.ts
-- Atualizar Character model se necessário
+- Atualizar modelos se necessário
 
 Teste de aceitação:
-- Parser deve criar objeto Character válido
+- Parser deve criar objeto Character válido (apenas campos básicos)
 - Attributes devem ser parseados corretamente
 - Parser deve lidar com campos opcionais
 - Integração com outros parsers funcional
@@ -654,7 +664,7 @@ Requisitos:
    - has (booleano, deve ter ou não ter)
 2. Criar PrereqList model (lista com operador AND/OR)
 3. Criar PrereqChecker em /src/domain/services/PrereqChecker.ts:
-   - checkPrereqs(character: Character, prereqs: PrereqList): boolean
+   - checkPrereqs(character: Character, prereqs: PrereqList): boolean (usando apenas campos básicos)
 4. Escrever testes PRIMEIRO:
    - Prereq simples satisfeito
    - Prereq simples não satisfeito
