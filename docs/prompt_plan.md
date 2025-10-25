@@ -1,169 +1,13 @@
 # Roteiro Detalhado para Construção do Visualizador Mobile GCS
 
-Com base na especificação técnica fornecida, apresento um plano completo de desenvolvimento iterativo e incremental, dividido em etapas progressivas que garantem testes robustos e integração contínua.
-
-## Análise e Estruturação do Projeto
-
-### Fase 1: Fundações e Infraestrutura Base
-
-**Bloco 1.1: Setup Inicial do Projeto**
-
-- Configuração do ambiente de desenvolvimento
-- Estruturação de pastas e arquitetura modular
-- Setup de testes unitários e CI/CD básico
-- Definição de padrões de código
-
-**Bloco 1.2: Sistema de Parsing Fundamental**
-
-- Criação da camada de abstração para leitura de arquivos
-- Parser básico para estrutura .gcs
-- Detecção de schema e versão do arquivo
-- Sistema de validação de formato
-
-**Bloco 1.3: Modelos de Dados Modulares**
-
-- Definição de interfaces/classes para entidades básicas seguindo arquitetura modular
-- **Modelo Core:** Character responsável apenas por version, id, total_points, created_date, modified_date
-- **Sub-entidades modulares:** CharacterProfile, CharacterSettings, CharacterAttributes, CharacterPointsRecord, CharacterCalc
-- **Modelos independentes:** Trait, Skill, Spell, Equipment, Ancestry
-- Sistema de tipos e validações para cada entidade independente
-- Testes de serialização/deserialização para cada modelo
-- Arquitetura que facilita parsers futuros e manutenção
-
-### Fase 2: Parsing e Interpretação de Dados
-
-**Priorização para Entrega Rápida de Valor:** Para permitir que o app leia arquivos GCS o mais rápido possível, priorize o parsing básico de entidades essenciais (Character, Traits, Skills, Equipment) antes de avançar para funcionalidades complexas. Isso permite integração inicial com a UI (Fase 3) para visualização simples, entregando valor ao usuário. Os blocos avançados (2.3 e 2.4) podem ser adiados ou implementados em paralelo após o MVP.
-
-**Bloco 2.1: Parsing de Entidades Simples (Prioridade Alta)**
-
-- Parser para informações de personagem (básicas: id, name, total_points, attributes)
-- Parser para traits básicos
-- Parser para skills fundamentais
-- Testes de parsing com arquivos exemplo
-- Integração inicial com modelos existentes (CharacterBasic, CharacterProfile, CharacterAttributes, Trait, Skill)
-
-**Bloco 2.2: Sistema de Containers (Prioridade Média)**
-
-- Estrutura recursiva para containers de equipamentos
-- Parser de equipamentos com hierarquia básica
-- Algoritmo de navegação em árvore simples
-- Testes com containers aninhados
-- Focar em hierarquia de 2-3 níveis para MVP
-
-**Bloco 2.3: Campos Avançados (Prioridade Baixa - Adiar)**
-
-- Parser para features e modifiers
-- Sistema de conditions e reactions
-- Interpretação de prereqs
-- Campos de estudo e progresso
-- Implementar após MVP para refinar experiência
-
-**Bloco 2.4: Sistema de Bibliotecas (Prioridade Baixa - Adiar)**
-
-- Carregamento de bibliotecas externas
-- Sistema de referência entre ficha e biblioteca
-- Detecção de customizações
-- Identificação de itens desatualizados
-- Considerar para versões futuras, não essencial para leitura básica
-
-### Fase 3: Interface e Visualização
-
-**Bloco 3.1: UI Base e Navegação**
-
-- Estrutura de navegação principal
-- Sistema de tabs/blocos
-- Layout responsivo base
-- Navegação bottom-menu
-
-**Bloco 3.2: Visualização de Dados Simples**
-
-- Telas para traits, skills, spells
-- Renderização de informações básicas
-- Sistema de cards e listas
-- Indicadores visuais básicos
-
-**Bloco 3.3: Visualização de Containers**
-
-- Componente de hierarquia visual
-- Drill-down em equipamentos
-- Indicadores de níveis de profundidade
-- Gestos de navegação (swipe)
-
-**Bloco 3.4: Indicadores e Estados Especiais**
-
-- Marcadores de customização
-- Alertas de desatualização
-- Visualização de conditions ativas
-- Badges de modifiers e reactions
-
-### Fase 4: Funcionalidades Avançadas
-
-**Bloco 4.1: Sistema de Busca**
-
-- Busca por nome
-- Filtros por tipo e categoria
-- Indexação de conteúdo
-- Performance em grandes fichas
-
-**Bloco 4.2: Persistência Local**
-
-- Sistema de armazenamento local
-- Gerenciamento de arquivos importados
-- Cache de fichas abertas
-- Cleanup e gestão de espaço
-
-**Bloco 4.3: Tratamento de Erros**
-
-- Sistema centralizado de erros
-- Mensagens amigáveis ao usuário
-- Logs para debugging
-- Fallbacks para dados ausentes
-
-**Bloco 4.4: Ancestries e Recursos Especiais**
-
-- Parser de ancestries
-- Gerador de nomes (leitura)
-- Regras de dano customizadas
-- Casos especiais do GURPS
-
-
-### Fase 5: Refinamento e Polimento
-
-**Bloco 5.1: Otimização de Performance**
-
-- Lazy loading de dados
-- Otimização de renderização
-- Redução de memória
-- Performance em devices antigos
-
-**Bloco 5.2: Testes de Integração Completos**
-
-- Testes end-to-end
-- Cenários complexos
-- Casos limite
-- Compatibilidade de versões
-
-**Bloco 5.3: UX e Acessibilidade**
-
-- Refinamento de UI/UX
-- Acessibilidade
-- Temas e customização visual
-- Feedback tátil e animações
-
-## Decomposição em Micro-Etapas
-
-Agora dividirei cada bloco em etapas ainda menores, apropriadas para implementação orientada por testes:
-
-***
-
 ## Prompts para IA Geradora de Código
 
 A seguir, apresento os prompts organizados sequencialmente, cada um construindo sobre os anteriores. Cada prompt é apresentado em bloco de código para facilitar o uso direto.[^1]
 
-### FASE 1: FUNDAÇÕES E INFRAESTRUTURA
+### FASE 1: FUNDAÇÕES E INFRAESTRUTURA BÁSICA
 
 #### Prompt 1.1.1: Inicialização do Projeto
-[x] 
+[x]
 ```
 Crie a estrutura inicial de um projeto React Native/TypeScript para um aplicativo mobile de visualização de fichas GURPS Character Sheet (.gcs).
 
@@ -192,7 +36,7 @@ Teste de aceitação:
 ```
 
 #### Prompt 1.1.2: Configuração de CI/CD Básico
-[x] 
+[x]
 ```
 Configure um pipeline básico de CI/CD para o projeto React Native iniciado no prompt 1.1.1.
 
@@ -220,7 +64,7 @@ Teste de aceitação:
 ```
 
 #### Prompt 1.2.1: Interface Base do Parser
-[x] 
+[x]
 ```
 Crie a camada de abstração para parsing de arquivos .gcs com TDD.
 
@@ -249,7 +93,7 @@ Teste de aceitação:
 ```
 
 #### Prompt 1.2.2: Detecção de Schema e Versão
-[x] 
+[x]
 ```
 Implemente o detector de schema e versão para arquivos .gcs com TDD.
 
@@ -279,7 +123,6 @@ Teste de aceitação:
 - Detector deve extrair versão corretamente
 - Detector deve retornar UNKNOWN para casos inválidos
 ```
-
 
 #### Prompt 1.3.1: Modelos de Dados Básicos
 [x]
@@ -325,7 +168,6 @@ Teste de aceitação:
 - Validadores devem rejeitar dados inválidos
 ```
 
-
 #### Prompt 1.3.2: Sistema de Validação de Tipos
 [x]
 ```
@@ -363,10 +205,10 @@ Teste de aceitação:
 ```
 
 
-### FASE 2: PARSING E INTERPRETAÇÃO
+### FASE 2: PARSING BÁSICO (PRIORIDADE ALTA - MVP)
 
-#### Prompt 2.1.1: Parser de Informações de Personagem (Prioridade Alta - Primeiro para MVP)
-
+#### Prompt 2.1.1: Parser de Informações de Personagem
+[x]
 ```
 Implemente parser para dados básicos do personagem com TDD. Este é o primeiro passo para permitir leitura de arquivos GCS.
 
@@ -398,9 +240,7 @@ Teste de aceitação:
 - Cobertura de testes > 90%
 ```
 
-
-#### Prompt 2.1.2: Parser de Traits Básicos (Prioridade Alta)
-
+#### Prompt 2.1.2: Parser de Traits Básicos
 ```
 Implemente parser para traits básicos de GURPS com TDD, construindo sobre o CharacterParser.
 
@@ -432,9 +272,7 @@ Teste de aceitação:
 - Testes devem ter cobertura > 90%
 ```
 
-
 #### Prompt 2.1.3: Parser de Skills Fundamentais (Prioridade Alta)
-
 ```
 Implemente parser para skills de GURPS com TDD, seguindo padrão do TraitParser.
 
@@ -468,7 +306,6 @@ Teste de aceitação:
 
 
 #### Prompt 2.2.1: Estrutura de Dados para Containers (Prioridade Média)
-
 ```
 Crie modelo de dados recursivo para containers (equipamentos hierárquicos) com TDD. Essencial para visualização de equipamentos aninhados.
 
@@ -501,9 +338,7 @@ Teste de aceitação:
 - Integração com guard e validator existentes
 ```
 
-
 #### Prompt 2.2.2: Parser de Equipamentos com Hierarquia (Prioridade Média)
-
 ```
 Implemente parser recursivo para equipamentos e containers com TDD.
 
@@ -537,9 +372,7 @@ Teste de aceitação:
 - Testes devem verificar estrutura completa
 ```
 
-
 #### Prompt 2.2.3: Algoritmo de Navegação em Árvore (Prioridade Média - Opcional para MVP)
-
 ```
 Implemente algoritmos eficientes de navegação na árvore de equipamentos.
 
@@ -852,9 +685,43 @@ Teste de aceitação:
 - Performance adequada
 ```
 
-**Próximos Passos Após FASE 2:** Com o parsing básico implementado (Prompts 2.1.1 a 2.2.2), o app já pode ler e processar arquivos GCS essenciais. Para entregar valor rápido, transite para FASE 3 (Interface e Visualização) para criar telas simples que exibam os dados parseados (Character, Traits, Skills, Equipment). Isso permite testar o parsing com UI real e disponibilizar o app para leitura básica. Os prompts adiados (2.3 e 2.4) podem ser implementados posteriormente para refinar a experiência.
+**Próximos Passos Após FASE 2:** Com o parsing básico implementado (Prompts 2.1.1 a 2.2.2), o app já pode ler e processar arquivos GCS essenciais. Para entregar valor rápido, transite para FASE 3 (Interface e Visualização) para criar telas simples que exibam os dados parseados (Character, Traits, Skills, Equipment). Isso permite testar o parsing com UI real e disponibilizar o app para leitura básica.
 
-### FASE 3: INTERFACE E VISUALIZAÇÃO
+**Próximos Passos Após FASE 3:** Com a interface básica funcional, o app já permite visualização dos dados essenciais. A FASE 4 (Parsing Avançado) pode ser implementada posteriormente para enriquecer os dados com features, modifiers e prerequisites. A FASE 5 (Funcionalidades Avançadas) adiciona busca, filtros e persistência local. A FASE 6 (Refinamento) foca em performance, testes E2E e acessibilidade.
+
+## 📋 Resumo da Reorganização por Prioridade
+
+### ✅ FASE 1: FUNDAÇÕES (Concluída)
+- Setup inicial, CI/CD, interfaces base, modelos e validação
+- **Prioridade:** Essencial para qualquer desenvolvimento
+
+### 🚀 FASE 2: PARSING BÁSICO (Em Progresso - MVP)
+- CharacterParser ✅, TraitParser, SkillParser, Equipment com containers
+- **Prioridade:** Alta - Permite leitura de arquivos GCS essenciais
+
+### 🎨 FASE 3: INTERFACE (Próxima - MVP)
+- Navegação, componentes de lista, visualização de dados
+- **Prioridade:** Alta - Permite visualização dos dados parseados
+
+### 🔧 FASE 4: PARSING AVANÇADO (Pós-MVP)
+- Features, modifiers, prerequisites, bibliotecas
+- **Prioridade:** Baixa - Enriquecimento de dados
+
+### ⚡ FASE 5: FUNCIONALIDADES AVANÇADAS (Pós-MVP)
+- Busca, filtros, persistência local, tratamento de erros
+- **Prioridade:** Média - Melhoria da experiência
+
+### ✨ FASE 6: REFINAMENTO (Final)
+- Performance, testes E2E, UX, acessibilidade
+- **Prioridade:** Baixa - Polimento e otimização
+
+### 🎯 Fluxo Recomendado para MVP
+1. **FASE 1** ✅ (Concluída)
+2. **FASE 2** (2.1.1 ✅ → 2.1.2 → 2.1.3 → 2.2.1 → 2.2.2)
+3. **FASE 3** (3.1.1 → 3.1.2 → 3.1.3 → 3.2.1 → 3.2.2 → 3.2.3)
+4. **Entrega do MVP** com parsing e visualização básicos
+
+### FASE 3: INTERFACE E VISUALIZAÇÃO (PRIORIDADE ALTA - MVP)
 
 #### Prompt 3.1.1: Estrutura de Navegação Principal
 
@@ -1273,7 +1140,284 @@ Teste de aceitação:
 ```
 
 
-### FASE 4: FUNCIONALIDADES AVANÇADAS
+### FASE 4: PARSING AVANÇADO (PRIORIDADE BAIXA - PÓS-MVP)
+
+#### Prompt 2.3.1: Modelos para Features e Modifiers (Prioridade Baixa - Adiar para Pós-MVP)
+
+**Nota:** Estes modelos são avançados e não essenciais para leitura básica de arquivos GCS. Adiar implementação até que o MVP (parsing e visualização simples) esteja funcional.
+
+```
+Crie modelos de dados para features, modifiers e conditions do GURPS com TDD.
+
+Contexto: Modelos básicos prontos. GURPS tem campos avançados que modificam traits/skills/etc. Implementar apenas se necessário para casos específicos.
+
+Requisitos:
+1. Criar models em /src/domain/models/:
+   - Feature.ts (type, amount, perLevel, etc)
+   - Modifier.ts (name, cost, affects, notes)
+   - Condition.ts (name, active, effects[])
+   - Reaction.ts (modifier, situation)
+2. Criar enum FeatureType (AttributeBonus, SkillBonus, DRBonus, etc)
+3. Criar enum ModifierCostType (Percentage, Points, Multiplier)
+4. Escrever testes PRIMEIRO:
+   - Criação de cada tipo
+   - Validação de campos
+   - Type guards
+   - Serialização/deserialização
+
+Entregas esperadas:
+- /tests/unit/domain/models/Feature.test.ts (primeiro!)
+- /tests/unit/domain/models/Modifier.test.ts (primeiro!)
+- /tests/unit/domain/models/Condition.test.ts (primeiro!)
+- /tests/unit/domain/models/Reaction.test.ts (primeiro!)
+- /src/domain/models/Feature.ts
+- /src/domain/models/Modifier.ts
+- /src/domain/models/Condition.ts
+- /src/domain/models/Reaction.ts
+- /src/domain/enums/FeatureType.ts
+
+Teste de aceitação:
+- Modelos devem representar conceitos GURPS corretamente
+- Type guards devem funcionar
+- Documentação inline deve explicar conceitos
+- Testes devem cobrir todos os tipos
+```
+
+#### Prompt 2.3.2: Parser de Features e Modifiers (Prioridade Baixa - Adiar)
+
+**Nota:** Parser avançado. Implementar apenas após MVP para enriquecer dados.
+
+```
+Implemente parsers para features e modifiers com TDD.
+
+Contexto: Modelos de Feature e Modifier prontos. Agora parseamos do arquivo .gcs.
+
+Requisitos:
+1. Criar FeatureParser em /src/data/parsers/FeatureParser.ts
+2. Implementar parseFeatures(data: unknown): Feature[]
+3. Criar ModifierParser em /src/data/parsers/ModifierParser.ts
+4. Implementar parseModifiers(data: unknown): Modifier[]
+5. Ambos devem:
+   - Validar tipos de feature/modifier
+   - Processar campos opcionais
+   - Retornar erros claros
+6. Escrever testes PRIMEIRO:
+   - Cada tipo de feature
+   - Cada tipo de modifier
+   - Combinações complexas
+   - Dados inválidos
+
+Entregas esperadas:
+- /tests/unit/data/parsers/FeatureParser.test.ts (primeiro!)
+- /tests/unit/data/parsers/ModifierParser.test.ts (primeiro!)
+- /tests/fixtures/features.json
+- /tests/fixtures/modifiers.json
+- /src/data/parsers/FeatureParser.ts
+- /src/data/parsers/ModifierParser.ts
+
+Teste de aceitação:
+- Parsers devem processar todos os tipos
+- Erros devem ser informativos
+- Integração com models funcionando
+- Cobertura > 90%
+```
+
+#### Prompt 2.3.3: Sistema de Prerequisites (Prereqs) (Prioridade Baixa - Adiar)
+
+**Nota:** Funcionalidade avançada para validação de regras. Não essencial para leitura básica.
+
+```
+Implemente sistema de prerequisites para traits/skills/spells com TDD.
+
+Contexto: GURPS tem sistema complexo de prereqs (requer trait X OU skill Y no nível Z).
+
+Requisitos:
+1. Criar Prereq model em /src/domain/models/Prereq.ts:
+   - type (Trait, Skill, Attribute, Advantage)
+   - qualifier (nome/id do prereq)
+   - level (valor mínimo)
+   - has (booleano, deve ter ou não ter)
+2. Criar PrereqList model (lista com operador AND/OR)
+3. Criar PrereqChecker em /src/domain/services/PrereqChecker.ts:
+   - checkPrereqs(character: Character, prereqs: PrereqList): boolean (usando apenas campos básicos)
+4. Escrever testes PRIMEIRO:
+   - Prereq simples satisfeito
+   - Prereq simples não satisfeito
+   - Lista AND (todos devem satisfazer)
+   - Lista OR (pelo menos um)
+   - Listas aninhadas (AND dentro de OR)
+
+Entregas esperadas:
+- /tests/unit/domain/models/Prereq.test.ts (primeiro!)
+- /tests/unit/domain/services/PrereqChecker.test.ts (primeiro!)
+- /src/domain/models/Prereq.ts
+- /src/domain/models/PrereqList.ts
+- /src/domain/services/PrereqChecker.ts
+
+Teste de aceitação:
+- Checker deve avaliar lógica booleana corretamente
+- Suporte para listas aninhadas
+- Performance adequada
+- Documentação de exemplos GURPS
+```
+
+#### Prompt 2.3.4: Parser de Campos de Estudo (Study) (Prioridade Baixa - Adiar)
+
+**Nota:** Rastreamento de progresso é avançado. Adiar para versões futuras.
+
+```
+Implemente parser para campos de estudo (study fields) com TDD.
+
+Contexto: GURPS permite rastreamento de horas de estudo para skills/spells.
+
+Requisitos:
+1. Criar Study model em /src/domain/models/Study.ts:
+   - targetId (skill/spell sendo estudado)
+   - hoursSpent (horas dedicadas)
+   - hoursNeeded (horas necessárias para próximo nível)
+   - status (NotStarted, InProgress, Completed)
+2. Criar StudyParser em /src/data/parsers/StudyParser.ts
+3. Implementar parseStudy(data: unknown): Study[]
+4. Escrever testes PRIMEIRO:
+   - Study em progresso
+   - Study completado
+   - Study não iniciado
+   - Validação de horas (não negativas)
+
+Entregas esperadas:
+- /tests/unit/domain/models/Study.test.ts (primeiro!)
+- /tests/unit/data/parsers/StudyParser.test.ts (primeiro!)
+- /tests/fixtures/study.json
+- /src/domain/models/Study.ts
+- /src/domain/enums/StudyStatus.ts
+- /src/data/parsers/StudyParser.ts
+
+Teste de aceitação:
+- Parser deve processar todos os estados
+- Validação de horas funcionando
+- Cálculo de progresso (hoursSpent/hoursNeeded)
+- Integração com Skills/Spells
+```
+
+#### Prompt 2.4.1: Sistema de Referência a Bibliotecas (Prioridade Baixa - Adiar para Pós-MVP)
+
+**Nota:** Sistema de bibliotecas é útil para validação avançada, mas não essencial para leitura básica de arquivos GCS. Adiar até que o app suporte funcionalidades como detecção de customizações.
+
+```
+Implemente sistema de carregamento e referência de bibliotecas externas com TDD.
+
+Contexto: Fichas referenciam itens de bibliotecas. Precisamos carregar e resolver referências. Implementar apenas se necessário para casos específicos.
+
+Requisitos:
+1. Criar Library model em /src/domain/models/Library.ts:
+   - id, name, version
+   - traits, skills, spells, equipment (coleções)
+   - isOfficial (boolean)
+2. Criar LibraryRepository em /src/data/repositories/LibraryRepository.ts:
+   - loadLibrary(path: string): Promise<Library>
+   - getItemById(libraryId: string, itemId: string): LibraryItem | null
+   - getAllLibraries(): Library[]
+3. Criar LibraryItem union type (Trait | Skill | Spell | Equipment)
+4. Escrever testes PRIMEIRO:
+   - Carregar biblioteca válida
+   - Buscar item por ID
+   - Biblioteca não encontrada
+   - Item não encontrado
+
+Entregas esperadas:
+- /tests/unit/domain/models/Library.test.ts (primeiro!)
+- /tests/unit/data/repositories/LibraryRepository.test.ts (primeiro!)
+- /tests/fixtures/library-official.json
+- /tests/fixtures/library-custom.json
+- /src/domain/models/Library.ts
+- /src/domain/types/LibraryItem.ts
+- /src/data/repositories/LibraryRepository.ts
+
+Teste de aceitação:
+- Repository deve carregar múltiplas bibliotecas
+- Busca por ID deve ser eficiente (< 1ms)
+- Bibliotecas devem ser imutáveis após carregadas
+- Tratamento de erros robusto
+```
+
+#### Prompt 2.4.2: Detecção de Customizações (Prioridade Baixa - Adiar)
+
+**Nota:** Detecção de customizações é uma feature avançada. Adiar para versões futuras focadas em validação.
+
+```
+Implemente sistema de detecção de itens customizados com TDD.
+
+Contexto: LibraryRepository pronto. Precisamos identificar itens customizados vs oficiais.
+
+Requisitos:
+1. Criar CustomizationDetector em /src/domain/services/CustomizationDetector.ts
+2. Implementar isCustomized(item: LibraryItem, libraries: Library[]): boolean
+3. Lógica:
+   - Item customizado se não existe em nenhuma biblioteca oficial
+   - Item customizado se campos foram modificados em relação à biblioteca
+4. Criar CustomizationInfo type:
+   - isCustomized: boolean
+   - originalLibrary?: string
+   - modifiedFields?: string[]
+5. Escrever testes PRIMEIRO:
+   - Item oficial não modificado
+   - Item oficial modificado
+   - Item totalmente customizado
+   - Item de biblioteca custom
+
+Entregas esperadas:
+- /tests/unit/domain/services/CustomizationDetector.test.ts (primeiro!)
+- /src/domain/services/CustomizationDetector.ts
+- /src/domain/types/CustomizationInfo.ts
+- Documentação de critérios
+
+Teste de aceitação:
+- Detector deve identificar customizações corretamente
+- Deve listar campos modificados
+- Performance adequada para fichas grandes
+- Integração com LibraryRepository
+```
+
+#### Prompt 2.4.3: Identificação de Itens Desatualizados (Prioridade Baixa - Adiar)
+
+**Nota:** Verificação de versões é útil para manutenção, mas não para leitura inicial. Adiar.
+
+```
+Implemente sistema de detecção de itens desatualizados com TDD.
+
+Contexto: CustomizationDetector pronto. Agora detectamos itens desatualizados em relação às bibliotecas.
+
+Requisitos:
+1. Criar VersionChecker em /src/domain/services/VersionChecker.ts
+2. Implementar isOutdated(item: LibraryItem, libraries: Library[]): boolean
+3. Lógica:
+   - Item desatualizado se version < biblioteca atual
+   - Comparar hash de conteúdo se version não disponível
+4. Criar OutdatedInfo type:
+   - isOutdated: boolean
+   - currentVersion: string
+   - latestVersion: string
+   - changesSummary?: string[]
+5. Escrever testes PRIMEIRO:
+   - Item atualizado
+   - Item com versão antiga
+   - Item sem informação de versão
+   - Biblioteca mais antiga que item
+
+Entregas esperadas:
+- /tests/unit/domain/services/VersionChecker.test.ts (primeiro!)
+- /src/domain/services/VersionChecker.ts
+- /src/domain/types/OutdatedInfo.ts
+- /src/infrastructure/utils/hash.ts (para comparação)
+
+Teste de aceitação:
+- Checker deve detectar versões antigas
+- Deve funcionar sem campo version
+- Integração com LibraryRepository
+- Performance adequada
+```
+
+### FASE 5: FUNCIONALIDADES AVANÇADAS (PRIORIDADE MÉDIA - APÓS MVP)
 
 #### Prompt 4.1.1: Sistema de Busca Base
 
@@ -1704,7 +1848,7 @@ Teste de aceitação:
 ```
 
 
-### FASE 5: REFINAMENTO E POLIMENTO
+### FASE 6: REFINAMENTO E POLIMENTO (PRIORIDADE BAIXA - FINAL)
 
 #### Prompt 5.1.1: Lazy Loading de Dados
 
