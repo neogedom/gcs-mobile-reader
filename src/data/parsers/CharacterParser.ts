@@ -85,21 +85,25 @@ export class CharacterParser {
     const techLevel = this.extractOptionalNumber(profile.tech_level, 'profile.tech_level') || undefined;
     const portrait = this.extractOptionalString(profile.portrait, 'profile.portrait') || undefined;
 
-    return new CharacterProfile({
+    // Construir objeto condicionalmente para evitar undefined com exactOptionalPropertyTypes
+    const profileObj: Record<string, any> = {
       name,
       playerName,
-      age,
-      birthday,
-      eyes,
-      hair,
-      skin,
-      handedness,
-      gender,
-      height,
-      weight,
-      techLevel,
-      portrait,
-    });
+    };
+
+    if (age !== undefined) profileObj.age = age;
+    if (birthday !== undefined) profileObj.birthday = birthday;
+    if (eyes !== undefined) profileObj.eyes = eyes;
+    if (hair !== undefined) profileObj.hair = hair;
+    if (skin !== undefined) profileObj.skin = skin;
+    if (handedness !== undefined) profileObj.handedness = handedness;
+    if (gender !== undefined) profileObj.gender = gender;
+    if (height !== undefined) profileObj.height = height;
+    if (weight !== undefined) profileObj.weight = weight;
+    if (techLevel !== undefined) profileObj.techLevel = techLevel;
+    if (portrait !== undefined) profileObj.portrait = portrait;
+
+    return new CharacterProfile(profileObj as any);
   }
 
   /**
@@ -129,19 +133,23 @@ export class CharacterParser {
     const fatiguePoints = this.extractOptionalAttributeValue(attributes, 'fp') || ht;
     const magicPoints = this.extractOptionalAttributeValue(attributes, 'magic_points');
 
-    return new CharacterAttributes({
+    // Construir objeto condicionalmente para evitar undefined com exactOptionalPropertyTypes
+    const attributesObj: Record<string, any> = {
       st,
       dx,
       iq,
       ht,
       will,
       per,
-      basicSpeed,
-      basicMove,
       hitPoints,
       fatiguePoints,
-      magicPoints,
-    });
+    };
+
+    if (basicSpeed !== undefined) attributesObj.basicSpeed = basicSpeed;
+    if (basicMove !== undefined) attributesObj.basicMove = basicMove;
+    if (magicPoints !== undefined) attributesObj.magicPoints = magicPoints;
+
+    return new CharacterAttributes(attributesObj as any);
   }
 
   /**
