@@ -32,6 +32,8 @@ export class CharacterBasicValidator {
       errors.push(
         `Campo version deve ser um número, recebido: ${typeof data.version}`
       );
+    } else if (data.version === 0) {
+      errors.push(`Campo version não deve ser zero, recebido: ${data.version}`);
     } else if (data.version < 0) {
       errors.push(
         `Campo version deve ser um número positivo, recebido: ${data.version}`

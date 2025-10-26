@@ -7,7 +7,9 @@ describe('isTrait', () => {
       const trait = new Trait({
         id: 'trait-1',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
         description: 'You have enhanced reactions in combat.',
       });
 
@@ -18,27 +20,33 @@ describe('isTrait', () => {
       const trait = new Trait({
         id: 'trait-2',
         name: 'High Pain Threshold',
-        cost: 10,
+        basePoints: 10,
+        calc: { points: 10 },
+        tags: ['Advantage'],
       });
 
       expect(isTrait(trait)).toBe(true);
     });
 
-    it('deve retornar true para trait com custo zero', () => {
+    it('deve retornar true para trait com basePoints zero', () => {
       const trait = new Trait({
         id: 'trait-3',
         name: 'Appearance',
-        cost: 0,
+        basePoints: 0,
+        calc: { points: 0 },
+        tags: ['Advantage'],
       });
 
       expect(isTrait(trait)).toBe(true);
     });
 
-    it('deve retornar true para trait com custo negativo', () => {
+    it('deve retornar true para trait com basePoints negativo', () => {
       const trait = new Trait({
         id: 'trait-4',
         name: 'Bad Temper',
-        cost: -10,
+        basePoints: -10,
+        calc: { points: -10 },
+        tags: ['Disadvantage'],
       });
 
       expect(isTrait(trait)).toBe(true);
@@ -49,7 +57,9 @@ describe('isTrait', () => {
     it('deve retornar false quando id está ausente', () => {
       const obj = {
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -58,16 +68,20 @@ describe('isTrait', () => {
     it('deve retornar false quando name está ausente', () => {
       const obj = {
         id: 'trait-1',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
     });
 
-    it('deve retornar false quando cost está ausente', () => {
+    it('deve retornar false quando calc está ausente', () => {
       const obj = {
         id: 'trait-1',
         name: 'Combat Reflexes',
+        basePoints: 15,
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -79,7 +93,9 @@ describe('isTrait', () => {
       const obj = {
         id: 123,
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -89,17 +105,21 @@ describe('isTrait', () => {
       const obj = {
         id: 'trait-1',
         name: 123,
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
     });
 
-    it('deve retornar false quando cost não é number', () => {
+    it('deve retornar false quando basePoints não é number', () => {
       const obj = {
         id: 'trait-1',
         name: 'Combat Reflexes',
-        cost: '15',
+        basePoints: '15',
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -109,7 +129,9 @@ describe('isTrait', () => {
       const obj = {
         id: 'trait-1',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
         description: 123,
       };
 
@@ -130,7 +152,9 @@ describe('isTrait', () => {
       const obj = {
         id: null,
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -140,17 +164,21 @@ describe('isTrait', () => {
       const obj = {
         id: 'trait-1',
         name: undefined,
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
     });
 
-    it('deve retornar false quando cost é null', () => {
+    it('deve retornar false quando basePoints é null', () => {
       const obj = {
         id: 'trait-1',
         name: 'Combat Reflexes',
-        cost: null,
+        basePoints: null,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -160,7 +188,9 @@ describe('isTrait', () => {
       const obj = {
         id: 'trait-1',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
         description: null,
       };
 
@@ -189,7 +219,9 @@ describe('isTrait', () => {
       const obj = {
         id: 'trait-1',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
         extra: 'field',
       };
 
@@ -200,7 +232,9 @@ describe('isTrait', () => {
       const obj = {
         id: '',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);
@@ -210,7 +244,9 @@ describe('isTrait', () => {
       const obj = {
         id: 'trait-1',
         name: '',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       expect(isTrait(obj)).toBe(false);

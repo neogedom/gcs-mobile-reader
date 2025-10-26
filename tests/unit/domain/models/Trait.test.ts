@@ -7,7 +7,9 @@ describe('Trait Model', () => {
       const traitData = {
         id: 'trait-001',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       // Act
@@ -17,7 +19,9 @@ describe('Trait Model', () => {
       expect(trait).toBeInstanceOf(Trait);
       expect(trait.id).toBe(traitData.id);
       expect(trait.name).toBe(traitData.name);
-      expect(trait.cost).toBe(traitData.cost);
+      expect(trait.basePoints).toBe(traitData.basePoints);
+      expect(trait.calc).toEqual(traitData.calc);
+      expect(trait.tags).toEqual(traitData.tags);
       expect(trait.description).toBeUndefined();
     });
 
@@ -26,7 +30,9 @@ describe('Trait Model', () => {
       const traitData = {
         id: 'trait-002',
         name: 'High Pain Threshold',
-        cost: 10,
+        basePoints: 10,
+        calc: { points: 10 },
+        tags: ['Advantage'],
         description: 'Você sofre apenas 1/3 do choque de ferimentos',
       };
 
@@ -37,7 +43,9 @@ describe('Trait Model', () => {
       expect(trait).toBeInstanceOf(Trait);
       expect(trait.id).toBe(traitData.id);
       expect(trait.name).toBe(traitData.name);
-      expect(trait.cost).toBe(traitData.cost);
+      expect(trait.basePoints).toBe(traitData.basePoints);
+      expect(trait.calc).toEqual(traitData.calc);
+      expect(trait.tags).toEqual(traitData.tags);
       expect(trait.description).toBe(traitData.description);
     });
   });
@@ -47,7 +55,9 @@ describe('Trait Model', () => {
       // Arrange
       const traitData = {
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       // Act & Assert
@@ -60,7 +70,9 @@ describe('Trait Model', () => {
       // Arrange
       const traitData = {
         id: 'trait-001',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       // Act & Assert
@@ -69,16 +81,18 @@ describe('Trait Model', () => {
       );
     });
 
-    it('deve lançar erro quando cost está ausente', () => {
+    it('deve lançar erro quando calc está ausente', () => {
       // Arrange
       const traitData = {
         id: 'trait-001',
         name: 'Combat Reflexes',
+        basePoints: 15,
+        tags: ['Advantage'],
       };
 
       // Act & Assert
       expect(() => new Trait(traitData as any)).toThrow(
-        'Campo obrigatório ausente: cost'
+        'Campo obrigatório ausente ou inválido: calc.points'
       );
     });
   });
@@ -89,7 +103,9 @@ describe('Trait Model', () => {
       const traitData = {
         id: 123,
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       // Act & Assert
@@ -103,7 +119,9 @@ describe('Trait Model', () => {
       const traitData = {
         id: 'trait-001',
         name: 123,
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       // Act & Assert
@@ -112,17 +130,19 @@ describe('Trait Model', () => {
       );
     });
 
-    it('deve lançar erro quando cost não é number', () => {
+    it('deve lançar erro quando basePoints não é number', () => {
       // Arrange
       const traitData = {
         id: 'trait-001',
         name: 'Combat Reflexes',
-        cost: '15',
+        basePoints: '15',
+        calc: { points: 15 },
+        tags: ['Advantage'],
       };
 
       // Act & Assert
       expect(() => new Trait(traitData as any)).toThrow(
-        'Tipo incorreto para o campo cost: esperado number, recebido string'
+        'Tipo incorreto para o campo basePoints: esperado number, recebido string'
       );
     });
 
@@ -131,7 +151,9 @@ describe('Trait Model', () => {
       const traitData = {
         id: 'trait-001',
         name: 'Combat Reflexes',
-        cost: 15,
+        basePoints: 15,
+        calc: { points: 15 },
+        tags: ['Advantage'],
         description: 123,
       };
 

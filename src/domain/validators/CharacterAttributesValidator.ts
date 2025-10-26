@@ -42,9 +42,13 @@ export class CharacterAttributesValidator {
     for (const attr of basicAttributes) {
       if (attr.value === undefined || attr.value === null) {
         errors.push(`Campo obrigatório ausente: ${attr.name}`);
-      } else if (typeof attr.value !== 'number') {
+      } else if (
+        typeof attr.value !== 'number' ||
+        isNaN(attr.value) ||
+        !isFinite(attr.value)
+      ) {
         errors.push(
-          `Campo ${attr.name} deve ser um número, recebido: ${typeof attr.value}`
+          `Campo ${attr.name} deve ser um número válido, recebido ${attr.value} no tipo: ${typeof attr.value}`
         );
       } else if (attr.value < 1) {
         errors.push(
@@ -56,26 +60,35 @@ export class CharacterAttributesValidator {
     // Validação dos atributos secundários (WILL, PER)
     if (
       data.will !== undefined &&
-      (typeof data.will !== 'number' || data.will < 1)
+      (typeof data.will !== 'number' ||
+        isNaN(data.will) ||
+        !isFinite(data.will) ||
+        data.will < 1)
     ) {
       errors.push(
-        `Campo will deve ser um número maior que 0, recebido: ${data.will}`
+        `Campo will deve ser um número maior que 0, recebido: ${data.will} com o tipo ${typeof data.will}`
       );
     }
 
     if (
       data.per !== undefined &&
-      (typeof data.per !== 'number' || data.per < 1)
+      (typeof data.per !== 'number' ||
+        isNaN(data.per) ||
+        !isFinite(data.per) ||
+        data.per < 1)
     ) {
       errors.push(
-        `Campo per deve ser um número maior que 0, recebido: ${data.per}`
+        `Campo per deve ser um número maior que 0, recebido: ${data.per} com o tipo ${typeof data.per}`
       );
     }
 
     // Validação dos atributos derivados
     if (
       data.basicSpeed !== undefined &&
-      (typeof data.basicSpeed !== 'number' || data.basicSpeed <= 0)
+      (typeof data.basicSpeed !== 'number' ||
+        isNaN(data.basicSpeed) ||
+        !isFinite(data.basicSpeed) ||
+        data.basicSpeed <= 0)
     ) {
       errors.push(
         `Campo basicSpeed deve ser um número positivo, recebido: ${data.basicSpeed}`
@@ -84,7 +97,10 @@ export class CharacterAttributesValidator {
 
     if (
       data.basicMove !== undefined &&
-      (typeof data.basicMove !== 'number' || data.basicMove < 0)
+      (typeof data.basicMove !== 'number' ||
+        isNaN(data.basicMove) ||
+        !isFinite(data.basicMove) ||
+        data.basicMove < 0)
     ) {
       errors.push(
         `Campo basicMove deve ser um número não negativo, recebido: ${data.basicMove}`
@@ -93,16 +109,21 @@ export class CharacterAttributesValidator {
 
     if (
       data.hitPoints !== undefined &&
-      (typeof data.hitPoints !== 'number' || data.hitPoints < 1)
+      (typeof data.hitPoints !== 'number' ||
+        isNaN(data.hitPoints) ||
+        !isFinite(data.hitPoints))
     ) {
       errors.push(
-        `Campo hitPoints deve ser um número maior que 0, recebido: ${data.hitPoints}`
+        `Campo hitPoints deve ser um número, recebido: ${data.hitPoints}`
       );
     }
 
     if (
       data.fatiguePoints !== undefined &&
-      (typeof data.fatiguePoints !== 'number' || data.fatiguePoints < 1)
+      (typeof data.fatiguePoints !== 'number' ||
+        isNaN(data.fatiguePoints) ||
+        !isFinite(data.fatiguePoints) ||
+        data.fatiguePoints < 1)
     ) {
       errors.push(
         `Campo fatiguePoints deve ser um número maior que 0, recebido: ${data.fatiguePoints}`
@@ -111,7 +132,10 @@ export class CharacterAttributesValidator {
 
     if (
       data.magicPoints !== undefined &&
-      (typeof data.magicPoints !== 'number' || data.magicPoints < 0)
+      (typeof data.magicPoints !== 'number' ||
+        isNaN(data.magicPoints) ||
+        !isFinite(data.magicPoints) ||
+        data.magicPoints < 0)
     ) {
       errors.push(
         `Campo magicPoints deve ser um número não negativo, recebido: ${data.magicPoints}`
