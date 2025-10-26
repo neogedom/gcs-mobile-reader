@@ -250,14 +250,70 @@ Requisitos:
 1. Criar TraitParser em /src/data/parsers/TraitParser.ts
 2. Implementar parseTraits(data: unknown): Trait[]
 3. Suportar campos:
-   - id, name, cost (obrigatórios)
-   - description, reference, notes (opcionais)
-4. Escrever testes PRIMEIRO com:
+   - id, name, base_points, calc, tags
+   - description, reference, replacements, local_notes, prereqs, modifiers, can_level, points_per_level, levels (opcionais)
+4. Verificar se, quando em nome há texto entre @ (como em (@Substance@)), também há replacements 
+5. Escrever testes PRIMEIRO com:
    - Array de traits válidos
    - Trait com campos opcionais ausentes
    - Trait malformado (deve retornar erro, não crash)
+   - Trait com replacements (quando no nome há texto entre @ (como em (@Substance@)), também deve haver replacements)
+   - Disavantage (points dentro de calc e base_points, se houver, devem ser negativos. Não deve coexistir com Advantage)
+   - Advantage (points dentro de calc e base_points, se houver, devem ser positivos. Não deve coexistir com Disavantage)
+   - Trait com level (atributos can_level, levels e point_per_level devem estar presentes e ter valores prenchidos. can_level deve ser true)
    - Array vazio
-5. Integrar com validadores e guards de Trait
+6. Integrar com validadores e guards de Trait
+
+Exemplo de Trait:
+
+{
+	"id": "tsDrguu39gYaXvAjF",
+	"source": {
+      "library": "richardwilkes/gcs_master_library",
+      "path": "Basic Set\\Basic Set Traits.adq",
+      "id": "tLYJ7NUl3CYeLk0Yc"
+      },
+   "name": "Susceptible (@Substance@)",
+   "reference": "B158",
+   "tags": [
+      "Disadvantage",
+      "Physical"
+   ],
+   "replacements": {
+      "Substance": "etanol etílico"
+   },
+   "modifiers": [
+      {
+         "id": "mKors4oNAXG8jIIKk",
+         "name": "Occasional",
+         "reference": "B158",
+         "cost": 1,
+         "cost_type": "multiplier"
+      },
+      {
+         "id": "ms4wIgDW0ytXZ9LdY",
+         "name": "Common",
+         "reference": "B158",
+         "cost": 2,
+         "cost_type": "multiplier",
+         "disabled": true
+      },
+      {
+         "id": "mDF4z3m2LWzEnp1Ld",
+         "name": "Very Common",
+         "reference": "B158",
+         "cost": 4,
+         "cost_type": "multiplier",
+         "disabled": true
+      }
+   ],
+   "points_per_level": -1,
+   "can_level": true,
+   "levels": 1,
+   "calc": {
+      "points": -1
+   }
+}
 
 Entregas esperadas:
 - /tests/unit/data/parsers/TraitParser.test.ts (primeiro!)
