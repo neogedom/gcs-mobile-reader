@@ -106,10 +106,7 @@ export class Trait {
       );
     }
 
-    if (
-      data.reference !== undefined &&
-      typeof data.reference !== 'string'
-    ) {
+    if (data.reference !== undefined && typeof data.reference !== 'string') {
       throw new Error(
         `Tipo incorreto para o campo reference: esperado string, recebido ${typeof data.reference}`
       );
@@ -124,19 +121,13 @@ export class Trait {
       );
     }
 
-    if (
-      data.localNotes !== undefined &&
-      typeof data.localNotes !== 'string'
-    ) {
+    if (data.localNotes !== undefined && typeof data.localNotes !== 'string') {
       throw new Error(
         `Tipo incorreto para o campo localNotes: esperado string, recebido ${typeof data.localNotes}`
       );
     }
 
-    if (
-      data.canLevel !== undefined &&
-      typeof data.canLevel !== 'boolean'
-    ) {
+    if (data.canLevel !== undefined && typeof data.canLevel !== 'boolean') {
       throw new Error(
         `Tipo incorreto para o campo canLevel: esperado boolean, recebido ${typeof data.canLevel}`
       );
@@ -151,10 +142,7 @@ export class Trait {
       );
     }
 
-    if (
-      data.levels !== undefined &&
-      typeof data.levels !== 'number'
-    ) {
+    if (data.levels !== undefined && typeof data.levels !== 'number') {
       throw new Error(
         `Tipo incorreto para o campo levels: esperado number, recebido ${typeof data.levels}`
       );

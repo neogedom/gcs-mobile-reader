@@ -48,7 +48,7 @@ describe('CharacterParser', () => {
         modified_date: '2025-01-01T00:00:00Z',
         profile: {
           name: 'Minimal Character',
-          player_name: 'Player'
+          player_name: 'Player',
         },
         attributes: [
           {
@@ -56,34 +56,34 @@ describe('CharacterParser', () => {
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
+              points: 0,
+            },
           },
           {
             attr_id: 'dx',
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
+              points: 0,
+            },
           },
           {
             attr_id: 'iq',
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
+              points: 0,
+            },
           },
           {
             attr_id: 'ht',
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
-          }
-        ]
+              points: 0,
+            },
+          },
+        ],
       };
 
       const result = parser.parseCharacter(minimalData);
@@ -122,9 +122,9 @@ describe('CharacterParser', () => {
         modified_date: '',
         profile: {
           name: '',
-          player_name: ''
+          player_name: '',
         },
-        attributes: []
+        attributes: [],
       };
 
       expect(() => parser.parseCharacter(invalidData as any)).toThrow();
@@ -133,13 +133,12 @@ describe('CharacterParser', () => {
 
   describe('Parsing de personagem inválido', () => {
     it('deve lançar erro se atributos negativos', () => {
-
       const invalidData = {
         version: 5,
         id: 'invalid-id',
         profile: {
           name: 'Invalid Character',
-          player_name: 'Player'
+          player_name: 'Player',
         },
         attributes: [
           {
@@ -147,36 +146,36 @@ describe('CharacterParser', () => {
             adj: 0,
             calc: {
               value: -10,
-              points: 0
-            }
+              points: 0,
+            },
           },
           {
             attr_id: 'dx',
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
+              points: 0,
+            },
           },
           {
             attr_id: 'iq',
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
+              points: 0,
+            },
           },
           {
             attr_id: 'ht',
             adj: 0,
             calc: {
               value: 10,
-              points: 0
-            }
-          }
-        ]
+              points: 0,
+            },
+          },
+        ],
       };
       expect(() => parser.parseCharacter(invalidData as any)).toThrow();
-    })
-  })
+    });
+  });
 });

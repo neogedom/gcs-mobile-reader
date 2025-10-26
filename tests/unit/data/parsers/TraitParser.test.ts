@@ -38,7 +38,9 @@ describe('TraitParser', () => {
     });
 
     it('deve parsear disadvantage com points negativos', () => {
-      const data = fixtureData.filter((trait: any) => trait.tags && trait.tags.includes('Disadvantage'));
+      const data = fixtureData.filter(
+        (trait: any) => trait.tags && trait.tags.includes('Disadvantage')
+      );
       expect(data.length).toBeGreaterThan(0);
 
       const result = parser.parseTraits(data);
@@ -54,7 +56,9 @@ describe('TraitParser', () => {
     });
 
     it('deve parsear advantage com points positivos', () => {
-      const data = fixtureData.filter((trait: any) => trait.tags && trait.tags.includes('Advantage'));
+      const data = fixtureData.filter(
+        (trait: any) => trait.tags && trait.tags.includes('Advantage')
+      );
       expect(data.length).toBeGreaterThan(0);
 
       const result = parser.parseTraits(data);
@@ -117,8 +121,8 @@ describe('TraitParser', () => {
           name: 'Invalid Trait',
           base_points: 5,
           calc: { points: 5 },
-          tags: ['Advantage']
-        }
+          tags: ['Advantage'],
+        },
       ];
 
       expect(() => parser.parseTraits(data)).toThrow();
@@ -131,8 +135,8 @@ describe('TraitParser', () => {
           name: 'No Calc',
           base_points: 5,
           calc: {}, // inválido
-          tags: ['Advantage']
-        }
+          tags: ['Advantage'],
+        },
       ];
 
       expect(() => parser.parseTraits(data)).toThrow();
@@ -146,8 +150,8 @@ describe('TraitParser', () => {
           base_points: 5,
           calc: { points: 5 },
           tags: ['Advantage'],
-          replacements: { Substance: 'test' }
-        }
+          replacements: { Substance: 'test' },
+        },
       ];
 
       // O parser deve validar se há @ no nome quando há replacements
@@ -178,12 +182,9 @@ describe('TraitParser', () => {
           localNotes: trait.localNotes,
           canLevel: trait.canLevel,
           pointsPerLevel: trait.pointsPerLevel,
-          levels: trait.levels
+          levels: trait.levels,
         });
         expect(validation.success).toBe(true);
-        if (!validation.success) {
-          console.log(`Trait ${trait.id} falhou na validação: ${validation.errors.join(', ')}`);
-        }
       });
     });
   });

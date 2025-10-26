@@ -50,7 +50,10 @@ export class CharacterParser {
     const id = this.extractString(data.id, 'id');
     const totalPoints = this.extractNumber(data.total_points, 'total_points');
     const createdDate = this.extractString(data.created_date, 'created_date');
-    const modifiedDate = this.extractString(data.modified_date, 'modified_date');
+    const modifiedDate = this.extractString(
+      data.modified_date,
+      'modified_date'
+    );
 
     return new CharacterBasic({
       version,
@@ -72,18 +75,36 @@ export class CharacterParser {
     const profile = profileData as Record<string, unknown>;
 
     const name = this.extractString(profile.name, 'profile.name');
-    const playerName = this.extractString(profile.player_name, 'profile.player_name');
-    const age = this.extractOptionalNumber(profile.age, 'profile.age') || undefined;
-    const birthday = this.extractOptionalString(profile.birthday, 'profile.birthday') || undefined;
-    const eyes = this.extractOptionalString(profile.eyes, 'profile.eyes') || undefined;
-    const hair = this.extractOptionalString(profile.hair, 'profile.hair') || undefined;
-    const skin = this.extractOptionalString(profile.skin, 'profile.skin') || undefined;
-    const handedness = this.extractOptionalString(profile.handedness, 'profile.handedness') || undefined;
-    const gender = this.extractOptionalString(profile.gender, 'profile.gender') || undefined;
-    const height = this.extractOptionalNumber(profile.height, 'profile.height') || undefined;
-    const weight = this.extractOptionalNumber(profile.weight, 'profile.weight') || undefined;
-    const techLevel = this.extractOptionalNumber(profile.tech_level, 'profile.tech_level') || undefined;
-    const portrait = this.extractOptionalString(profile.portrait, 'profile.portrait') || undefined;
+    const playerName = this.extractString(
+      profile.player_name,
+      'profile.player_name'
+    );
+    const age =
+      this.extractOptionalNumber(profile.age, 'profile.age') || undefined;
+    const birthday =
+      this.extractOptionalString(profile.birthday, 'profile.birthday') ||
+      undefined;
+    const eyes =
+      this.extractOptionalString(profile.eyes, 'profile.eyes') || undefined;
+    const hair =
+      this.extractOptionalString(profile.hair, 'profile.hair') || undefined;
+    const skin =
+      this.extractOptionalString(profile.skin, 'profile.skin') || undefined;
+    const handedness =
+      this.extractOptionalString(profile.handedness, 'profile.handedness') ||
+      undefined;
+    const gender =
+      this.extractOptionalString(profile.gender, 'profile.gender') || undefined;
+    const height =
+      this.extractOptionalNumber(profile.height, 'profile.height') || undefined;
+    const weight =
+      this.extractOptionalNumber(profile.weight, 'profile.weight') || undefined;
+    const techLevel =
+      this.extractOptionalNumber(profile.tech_level, 'profile.tech_level') ||
+      undefined;
+    const portrait =
+      this.extractOptionalString(profile.portrait, 'profile.portrait') ||
+      undefined;
 
     // Construir objeto condicionalmente para evitar undefined com exactOptionalPropertyTypes
     const profileObj: Record<string, any> = {
@@ -109,7 +130,9 @@ export class CharacterParser {
   /**
    * Parseia dados de atributos do personagem
    */
-  private parseCharacterAttributes(attributesData: unknown): CharacterAttributes {
+  private parseCharacterAttributes(
+    attributesData: unknown
+  ): CharacterAttributes {
     if (!attributesData || !Array.isArray(attributesData)) {
       throw new Error('Dados de atributos inválidos: deve ser um array');
     }
@@ -127,11 +150,22 @@ export class CharacterParser {
     const per = this.extractOptionalAttributeValue(attributes, 'per') || iq;
 
     // Atributos derivados (opcionais)
-    const basicSpeed = this.extractOptionalAttributeValue(attributes, 'basic_speed');
-    const basicMove = this.extractOptionalAttributeValue(attributes, 'basic_move');
-    const hitPoints = this.extractOptionalAttributeValue(attributes, 'hp') || st;
-    const fatiguePoints = this.extractOptionalAttributeValue(attributes, 'fp') || ht;
-    const magicPoints = this.extractOptionalAttributeValue(attributes, 'magic_points');
+    const basicSpeed = this.extractOptionalAttributeValue(
+      attributes,
+      'basic_speed'
+    );
+    const basicMove = this.extractOptionalAttributeValue(
+      attributes,
+      'basic_move'
+    );
+    const hitPoints =
+      this.extractOptionalAttributeValue(attributes, 'hp') || st;
+    const fatiguePoints =
+      this.extractOptionalAttributeValue(attributes, 'fp') || ht;
+    const magicPoints = this.extractOptionalAttributeValue(
+      attributes,
+      'magic_points'
+    );
 
     // Construir objeto condicionalmente para evitar undefined com exactOptionalPropertyTypes
     const attributesObj: Record<string, any> = {
@@ -155,28 +189,40 @@ export class CharacterParser {
   /**
    * Extrai valor de atributo do array de attributes
    */
-  private extractAttributeValue(attributes: Array<Record<string, unknown>>, attrId: string): number {
+  private extractAttributeValue(
+    attributes: Array<Record<string, unknown>>,
+    attrId: string
+  ): number {
     const attr = attributes.find(a => a.attr_id === attrId);
     if (!attr || !attr.calc || typeof attr.calc !== 'object') {
       throw new Error(`Atributo ${attrId} não encontrado ou inválido`);
     }
 
     const calc = attr.calc as Record<string, unknown>;
-    const value = this.extractNumber(calc.value, `attributes.${attrId}.calc.value`);
+    const value = this.extractNumber(
+      calc.value,
+      `attributes.${attrId}.calc.value`
+    );
     return value;
   }
 
   /**
    * Extrai valor de atributo opcional do array de attributes
    */
-  private extractOptionalAttributeValue(attributes: Array<Record<string, unknown>>, attrId: string): number | undefined {
+  private extractOptionalAttributeValue(
+    attributes: Array<Record<string, unknown>>,
+    attrId: string
+  ): number | undefined {
     const attr = attributes.find(a => a.attr_id === attrId);
     if (!attr || !attr.calc || typeof attr.calc !== 'object') {
       return undefined;
     }
 
     const calc = attr.calc as Record<string, unknown>;
-    const value = this.extractNumber(calc.value, `attributes.${attrId}.calc.value`);
+    const value = this.extractNumber(
+      calc.value,
+      `attributes.${attrId}.calc.value`
+    );
     return value;
   }
 
@@ -208,7 +254,9 @@ export class CharacterParser {
    */
   private extractNumber(value: unknown, field: string): number {
     if (typeof value !== 'number' || isNaN(value)) {
-      throw new Error(`Campo obrigatório numérico inválido: ${field} (recebido: ${typeof value})`);
+      throw new Error(
+        `Campo obrigatório numérico inválido: ${field} (recebido: ${typeof value})`
+      );
     }
     return value;
   }

@@ -71,9 +71,14 @@ export class TraitParser {
 
     // Validar replacements se nome tem @
     const hasAtSymbol = name.includes('@');
-    const replacements = traitData.replacements as Record<string, string> | undefined;
+    const replacements = traitData.replacements as
+      | Record<string, string>
+      | undefined;
 
-    if (hasAtSymbol && (!replacements || Object.keys(replacements).length === 0)) {
+    if (
+      hasAtSymbol &&
+      (!replacements || Object.keys(replacements).length === 0)
+    ) {
       throw new Error('Trait com @ no nome deve ter replacements');
     }
 
@@ -86,7 +91,9 @@ export class TraitParser {
     const isDisadvantage = tags && tags.includes('Disadvantage');
 
     if (isAdvantage && isDisadvantage) {
-      throw new Error('Trait não pode ser Advantage e Disadvantage ao mesmo tempo');
+      throw new Error(
+        'Trait não pode ser Advantage e Disadvantage ao mesmo tempo'
+      );
     }
 
     // Nota: Não validar strictly advantage/disadvantage points, pois dados reais podem variar
@@ -104,7 +111,9 @@ export class TraitParser {
     // Validar level fields
     if (canLevel) {
       if (pointsPerLevel === undefined || levels === undefined) {
-        throw new Error('Trait com can_level=true deve ter points_per_level e levels');
+        throw new Error(
+          'Trait com can_level=true deve ter points_per_level e levels'
+        );
       }
     }
 
@@ -123,7 +132,7 @@ export class TraitParser {
       modifiers,
       canLevel,
       pointsPerLevel,
-      levels
+      levels,
     });
 
     // Validar com guard e validator
@@ -145,7 +154,7 @@ export class TraitParser {
       modifiers: trait.modifiers,
       canLevel: trait.canLevel,
       pointsPerLevel: trait.pointsPerLevel,
-      levels: trait.levels
+      levels: trait.levels,
     });
 
     if (!validation.success) {

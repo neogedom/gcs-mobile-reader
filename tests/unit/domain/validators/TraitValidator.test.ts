@@ -1,4 +1,8 @@
-import { TraitValidator, TraitData, ValidationResult } from '../../../../src/domain/validators/TraitValidator';
+import {
+  TraitValidator,
+  TraitData,
+  ValidationResult,
+} from '../../../../src/domain/validators/TraitValidator';
 
 describe('TraitValidator', () => {
   describe('Validação de dados válidos (Happy Path)', () => {
@@ -72,7 +76,9 @@ describe('TraitValidator', () => {
 
       const r1 = TraitValidator.validate(invalid1);
       expect(r1.success).toBe(false);
-      expect(r1.errors).toContain('Campo obrigatório ausente ou inválido: calc.points');
+      expect(r1.errors).toContain(
+        'Campo obrigatório ausente ou inválido: calc.points'
+      );
 
       const invalid2: any = {
         id: 't2',
@@ -82,7 +88,9 @@ describe('TraitValidator', () => {
 
       const r2 = TraitValidator.validate(invalid2);
       expect(r2.success).toBe(false);
-      expect(r2.errors).toContain('Campo obrigatório ausente ou inválido: calc.points');
+      expect(r2.errors).toContain(
+        'Campo obrigatório ausente ou inválido: calc.points'
+      );
     });
   });
 
@@ -97,7 +105,9 @@ describe('TraitValidator', () => {
 
       const result = TraitValidator.validate(invalid);
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo id deve ser uma string, recebido: number');
+      expect(result.errors).toContain(
+        'Campo id deve ser uma string, recebido: number'
+      );
     });
 
     it('deve falhar quando basePoints não é number', () => {
@@ -110,7 +120,9 @@ describe('TraitValidator', () => {
 
       const result = TraitValidator.validate(invalid);
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo basePoints deve ser um número, recebido: string');
+      expect(result.errors).toContain(
+        'Campo basePoints deve ser um número, recebido: string'
+      );
     });
 
     it('deve falhar quando description não é string', () => {
@@ -124,7 +136,9 @@ describe('TraitValidator', () => {
 
       const result = TraitValidator.validate(invalid);
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo description deve ser uma string, recebido: number');
+      expect(result.errors).toContain(
+        'Campo description deve ser uma string, recebido: number'
+      );
     });
 
     it('deve falhar quando tags não é array ou contém tipos inválidos', () => {
@@ -148,7 +162,9 @@ describe('TraitValidator', () => {
 
       const r2 = TraitValidator.validate(invalid2);
       expect(r2.success).toBe(false);
-      expect(r2.errors).toContain('Todos os elementos de tags devem ser strings');
+      expect(r2.errors).toContain(
+        'Todos os elementos de tags devem ser strings'
+      );
     });
   });
 
@@ -163,7 +179,9 @@ describe('TraitValidator', () => {
 
       const result = TraitValidator.validate(invalid);
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo replacements deve ser um objeto, recebido: string');
+      expect(result.errors).toContain(
+        'Campo replacements deve ser um objeto, recebido: string'
+      );
     });
 
     it('deve acumular múltiplos erros e retornar todos', () => {
@@ -182,12 +200,22 @@ describe('TraitValidator', () => {
       expect(result.success).toBe(false);
       // Deve conter várias mensagens relevantes
       expect(result.errors.length).toBeGreaterThanOrEqual(6);
-      expect(result.errors).toContain('Campo id deve ser uma string, recebido: number');
+      expect(result.errors).toContain(
+        'Campo id deve ser uma string, recebido: number'
+      );
       expect(result.errors).toContain('Campo obrigatório ausente: name');
-      expect(result.errors).toContain('Campo basePoints deve ser um número, recebido: string');
-      expect(result.errors).toContain('Campo obrigatório ausente ou inválido: calc.points');
-      expect(result.errors).toContain('Todos os elementos de tags devem ser strings');
-      expect(result.errors).toContain('Campo description deve ser uma string, recebido: number');
+      expect(result.errors).toContain(
+        'Campo basePoints deve ser um número, recebido: string'
+      );
+      expect(result.errors).toContain(
+        'Campo obrigatório ausente ou inválido: calc.points'
+      );
+      expect(result.errors).toContain(
+        'Todos os elementos de tags devem ser strings'
+      );
+      expect(result.errors).toContain(
+        'Campo description deve ser uma string, recebido: number'
+      );
     });
   });
 });

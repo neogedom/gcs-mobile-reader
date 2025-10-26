@@ -1,4 +1,8 @@
-import { CharacterProfileValidator, CharacterProfileData, ValidationResult } from '../../../../src/domain/validators/CharacterProfileValidator';
+import {
+  CharacterProfileValidator,
+  CharacterProfileData,
+  ValidationResult,
+} from '../../../../src/domain/validators/CharacterProfileValidator';
 
 describe('CharacterProfileValidator', () => {
   describe('Validação de dados válidos (Happy Path)', () => {
@@ -8,7 +12,8 @@ describe('CharacterProfileValidator', () => {
         playerName: 'Jogador',
       };
 
-      const result: ValidationResult = CharacterProfileValidator.validate(validData);
+      const result: ValidationResult =
+        CharacterProfileValidator.validate(validData);
 
       expect(result.success).toBe(true);
       expect(result.errors).toHaveLength(0);
@@ -79,7 +84,9 @@ describe('CharacterProfileValidator', () => {
 
       const r1 = CharacterProfileValidator.validate(invalid1);
       expect(r1.success).toBe(false);
-      expect(r1.errors).toContain('Campo age deve ser um número não negativo, recebido: -1 com o tipo number');
+      expect(r1.errors).toContain(
+        'Campo age deve ser um número não negativo, recebido: -1 com o tipo number'
+      );
 
       const invalid2: any = {
         name: 'N',
@@ -89,7 +96,9 @@ describe('CharacterProfileValidator', () => {
 
       const r2 = CharacterProfileValidator.validate(invalid2);
       expect(r2.success).toBe(false);
-      expect(r2.errors).toContain('Campo height deve ser um número não negativo, recebido: 180 com o tipo string');
+      expect(r2.errors).toContain(
+        'Campo height deve ser um número não negativo, recebido: 180 com o tipo string'
+      );
     });
 
     it('deve falhar quando techLevel não é número ou é negativo', () => {
@@ -101,7 +110,9 @@ describe('CharacterProfileValidator', () => {
 
       const r1 = CharacterProfileValidator.validate(invalid1);
       expect(r1.success).toBe(false);
-      expect(r1.errors).toContain('Campo techLevel deve ser um número não negativo, recebido: -2 com o tipo number');
+      expect(r1.errors).toContain(
+        'Campo techLevel deve ser um número não negativo, recebido: -2 com o tipo number'
+      );
 
       const invalid2: any = {
         name: 'N',
@@ -111,7 +122,9 @@ describe('CharacterProfileValidator', () => {
 
       const r2 = CharacterProfileValidator.validate(invalid2);
       expect(r2.success).toBe(false);
-      expect(r2.errors).toContain('Campo techLevel deve ser um número não negativo, recebido: 3 com o tipo string');
+      expect(r2.errors).toContain(
+        'Campo techLevel deve ser um número não negativo, recebido: 3 com o tipo string'
+      );
     });
   });
 
@@ -131,10 +144,18 @@ describe('CharacterProfileValidator', () => {
       expect(result.errors.length).toBeGreaterThanOrEqual(5);
       expect(result.errors).toContain('Campo obrigatório ausente: name');
       expect(result.errors).toContain('Campo obrigatório ausente: playerName');
-      expect(result.errors).toContain('Campo age deve ser um número não negativo, recebido: -5 com o tipo number');
-      expect(result.errors).toContain('Campo height deve ser um número não negativo, recebido: -1 com o tipo number');
-      expect(result.errors).toContain('Campo weight deve ser um número não negativo, recebido: 80 com o tipo string');
-      expect(result.errors).toContain('Campo techLevel deve ser um número não negativo, recebido: NaN com o tipo string');
+      expect(result.errors).toContain(
+        'Campo age deve ser um número não negativo, recebido: -5 com o tipo number'
+      );
+      expect(result.errors).toContain(
+        'Campo height deve ser um número não negativo, recebido: -1 com o tipo number'
+      );
+      expect(result.errors).toContain(
+        'Campo weight deve ser um número não negativo, recebido: 80 com o tipo string'
+      );
+      expect(result.errors).toContain(
+        'Campo techLevel deve ser um número não negativo, recebido: NaN com o tipo string'
+      );
     });
   });
 });

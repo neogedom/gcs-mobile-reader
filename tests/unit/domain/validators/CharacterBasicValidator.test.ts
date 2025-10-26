@@ -1,4 +1,8 @@
-import { CharacterBasicValidator, CharacterBasicData, ValidationResult } from '../../../../src/domain/validators/CharacterBasicValidator';
+import {
+  CharacterBasicValidator,
+  CharacterBasicData,
+  ValidationResult,
+} from '../../../../src/domain/validators/CharacterBasicValidator';
 
 describe('CharacterBasicValidator', () => {
   describe('Validação de dados válidos (Happy Path)', () => {
@@ -11,7 +15,8 @@ describe('CharacterBasicValidator', () => {
         modifiedDate: '2025-01-02T00:00:00Z',
       };
 
-      const result: ValidationResult = CharacterBasicValidator.validate(validData);
+      const result: ValidationResult =
+        CharacterBasicValidator.validate(validData);
 
       expect(result.success).toBe(true);
       expect(result.errors).toHaveLength(0);
@@ -26,7 +31,8 @@ describe('CharacterBasicValidator', () => {
         modifiedDate: '2025-01-01T00:00:00Z',
       };
 
-      const result: ValidationResult = CharacterBasicValidator.validate(validData);
+      const result: ValidationResult =
+        CharacterBasicValidator.validate(validData);
 
       expect(result.success).toBe(true);
       expect(result.errors).toHaveLength(0);
@@ -60,7 +66,9 @@ describe('CharacterBasicValidator', () => {
       const result = CharacterBasicValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo version deve ser um número, recebido: string');
+      expect(result.errors).toContain(
+        'Campo version deve ser um número, recebido: string'
+      );
     });
 
     it('deve falhar quando version é negativo', () => {
@@ -75,7 +83,9 @@ describe('CharacterBasicValidator', () => {
       const result = CharacterBasicValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo version deve ser um número positivo, recebido: -1');
+      expect(result.errors).toContain(
+        'Campo version deve ser um número positivo, recebido: -1'
+      );
     });
 
     it('deve falhar quando version é zero', () => {
@@ -90,7 +100,9 @@ describe('CharacterBasicValidator', () => {
       const result = CharacterBasicValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo version não deve ser zero, recebido: 0');
+      expect(result.errors).toContain(
+        'Campo version não deve ser zero, recebido: 0'
+      );
     });
 
     it('deve falhar quando id está ausente ou vazio', () => {
@@ -117,7 +129,9 @@ describe('CharacterBasicValidator', () => {
 
       const result1 = CharacterBasicValidator.validate(invalidData1);
       expect(result1.success).toBe(false);
-      expect(result1.errors).toContain('Campo totalPoints deve ser um número não negativo, recebido: -10');
+      expect(result1.errors).toContain(
+        'Campo totalPoints deve ser um número não negativo, recebido: -10'
+      );
 
       const invalidData2 = {
         version: 1,
@@ -129,7 +143,9 @@ describe('CharacterBasicValidator', () => {
 
       const result2 = CharacterBasicValidator.validate(invalidData2);
       expect(result2.success).toBe(false);
-      expect(result2.errors).toContain('Campo totalPoints deve ser um número, recebido: string');
+      expect(result2.errors).toContain(
+        'Campo totalPoints deve ser um número, recebido: string'
+      );
     });
 
     it('deve falhar quando createdDate ou modifiedDate estão ausentes ou não são string', () => {
@@ -142,7 +158,9 @@ describe('CharacterBasicValidator', () => {
 
       const result1 = CharacterBasicValidator.validate(invalidData1);
       expect(result1.success).toBe(false);
-      expect(result1.errors).toContain('Campo obrigatório ausente: createdDate');
+      expect(result1.errors).toContain(
+        'Campo obrigatório ausente: createdDate'
+      );
 
       const invalidData2 = {
         version: 1,
@@ -154,7 +172,9 @@ describe('CharacterBasicValidator', () => {
 
       const result2 = CharacterBasicValidator.validate(invalidData2);
       expect(result2.success).toBe(false);
-      expect(result2.errors).toContain('Campo modifiedDate deve ser uma string, recebido: number');
+      expect(result2.errors).toContain(
+        'Campo modifiedDate deve ser uma string, recebido: number'
+      );
     });
   });
 
@@ -172,9 +192,13 @@ describe('CharacterBasicValidator', () => {
 
       expect(result.success).toBe(false);
       expect(result.errors.length).toBeGreaterThanOrEqual(4);
-      expect(result.errors).toContain('Campo version deve ser um número positivo, recebido: -1');
+      expect(result.errors).toContain(
+        'Campo version deve ser um número positivo, recebido: -1'
+      );
       expect(result.errors).toContain('Campo obrigatório ausente: id');
-      expect(result.errors).toContain('Campo totalPoints deve ser um número não negativo, recebido: -5');
+      expect(result.errors).toContain(
+        'Campo totalPoints deve ser um número não negativo, recebido: -5'
+      );
       expect(result.errors).toContain('Campo obrigatório ausente: createdDate');
     });
   });

@@ -50,18 +50,30 @@ export function isTrait(obj: unknown): obj is Trait {
   }
 
   // Valida basePoints se presente
-  if ('basePoints' in trait && trait.basePoints !== undefined && typeof trait.basePoints !== 'number') {
+  if (
+    'basePoints' in trait &&
+    trait.basePoints !== undefined &&
+    typeof trait.basePoints !== 'number'
+  ) {
     return false;
   }
 
   // Valida calc
-  if (typeof trait.calc !== 'object' || trait.calc === null || !('points' in trait.calc) || typeof trait.calc.points !== 'number') {
+  if (
+    typeof trait.calc !== 'object' ||
+    trait.calc === null ||
+    !('points' in trait.calc) ||
+    typeof trait.calc.points !== 'number'
+  ) {
     return false;
   }
 
   // Valida tags se presente
   if ('tags' in trait && trait.tags !== undefined) {
-    if (!Array.isArray(trait.tags) || !trait.tags.every(tag => typeof tag === 'string')) {
+    if (
+      !Array.isArray(trait.tags) ||
+      !trait.tags.every(tag => typeof tag === 'string')
+    ) {
       return false;
     }
   }
@@ -69,9 +81,9 @@ export function isTrait(obj: unknown): obj is Trait {
   // Valida description se presente
   if ('description' in trait) {
     if (
-       trait.description !== undefined &&
-       (typeof trait.description !== 'string' ||
-         trait.description.trim().length === 0)
+      trait.description !== undefined &&
+      (typeof trait.description !== 'string' ||
+        trait.description.trim().length === 0)
     ) {
       return false;
     }
@@ -86,14 +98,20 @@ export function isTrait(obj: unknown): obj is Trait {
 
   // Valida replacements se presente
   if ('replacements' in trait) {
-    if (trait.replacements !== undefined && (typeof trait.replacements !== 'object' || trait.replacements === null)) {
+    if (
+      trait.replacements !== undefined &&
+      (typeof trait.replacements !== 'object' || trait.replacements === null)
+    ) {
       return false;
     }
   }
 
   // Valida localNotes se presente
   if ('localNotes' in trait) {
-    if (trait.localNotes !== undefined && typeof trait.localNotes !== 'string') {
+    if (
+      trait.localNotes !== undefined &&
+      typeof trait.localNotes !== 'string'
+    ) {
       return false;
     }
   }
@@ -107,7 +125,10 @@ export function isTrait(obj: unknown): obj is Trait {
 
   // Valida pointsPerLevel se presente
   if ('pointsPerLevel' in trait) {
-    if (trait.pointsPerLevel !== undefined && typeof trait.pointsPerLevel !== 'number') {
+    if (
+      trait.pointsPerLevel !== undefined &&
+      typeof trait.pointsPerLevel !== 'number'
+    ) {
       return false;
     }
   }

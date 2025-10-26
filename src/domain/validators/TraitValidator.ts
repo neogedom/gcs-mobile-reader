@@ -82,10 +82,7 @@ export class TraitValidator {
     }
 
     // Validação do campo reference (opcional)
-    if (
-      data.reference !== undefined &&
-      typeof data.reference !== 'string'
-    ) {
+    if (data.reference !== undefined && typeof data.reference !== 'string') {
       errors.push(
         `Campo reference deve ser uma string, recebido: ${typeof data.reference}`
       );
@@ -102,20 +99,14 @@ export class TraitValidator {
     }
 
     // Validação do campo localNotes (opcional)
-    if (
-      data.localNotes !== undefined &&
-      typeof data.localNotes !== 'string'
-    ) {
+    if (data.localNotes !== undefined && typeof data.localNotes !== 'string') {
       errors.push(
         `Campo localNotes deve ser uma string, recebido: ${typeof data.localNotes}`
       );
     }
 
     // Validação do campo canLevel (opcional)
-    if (
-      data.canLevel !== undefined &&
-      typeof data.canLevel !== 'boolean'
-    ) {
+    if (data.canLevel !== undefined && typeof data.canLevel !== 'boolean') {
       errors.push(
         `Campo canLevel deve ser um boolean, recebido: ${typeof data.canLevel}`
       );
@@ -132,10 +123,7 @@ export class TraitValidator {
     }
 
     // Validação do campo levels (opcional)
-    if (
-      data.levels !== undefined &&
-      typeof data.levels !== 'number'
-    ) {
+    if (data.levels !== undefined && typeof data.levels !== 'number') {
       errors.push(
         `Campo levels deve ser um número, recebido: ${typeof data.levels}`
       );
