@@ -2,8 +2,7 @@ import { TraitParser } from '../../../../src/data/parsers';
 import { Trait } from '../../../../src/domain/models/Trait';
 import { isTrait } from '../../../../src/domain/guards/Trait.guard';
 import { TraitValidator } from '../../../../src/domain/validators/TraitValidator';
-import * as fs from 'fs';
-import * as path from 'path';
+import characterData from '../../../../tests/utils/characterBuilder';
 
 describe('TraitParser', () => {
   let parser: TraitParser;
@@ -11,10 +10,6 @@ describe('TraitParser', () => {
 
   beforeEach(() => {
     parser = new TraitParser();
-    // Carrega dados do fixture
-    const fixturePath = path.join(__dirname, '../../../fixtures/character.gcs');
-    const fixtureContent = fs.readFileSync(fixturePath, 'utf-8');
-    const characterData = JSON.parse(fixtureContent);
     fixtureData = characterData.traits;
   });
 
