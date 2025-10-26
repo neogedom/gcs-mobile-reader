@@ -130,7 +130,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo st deve ser um número válido, recebido no tipo: string');
+      expect(result.errors).toContain('Campo st deve ser um número válido, recebido 12 no tipo: string');
     });
 
     it('deve falhar quando ST é 0', () => {
@@ -261,7 +261,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: 0');
+      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: 0 com o tipo number');
     });
 
     it('deve falhar quando WILL é negativo', () => {
@@ -276,7 +276,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: -2');
+      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: -2 com o tipo number');
     });
 
     it('deve falhar quando PER é fornecido mas não é número', () => {
@@ -306,7 +306,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo per deve ser um número maior que 0, recebido: 0');
+      expect(result.errors).toContain('Campo per deve ser um número maior que 0, recebido: 0 com o tipo number');
     });
   });
 
@@ -690,10 +690,10 @@ describe('CharacterAttributesValidator', () => {
       expect(result.errors.length).toBeCloseTo(9) // Múltiplos erros
 
       expect(result.errors).toContain('Campo st deve ser maior que 0, recebido: 0');
-      expect(result.errors).toContain('Campo dx deve ser um número válido, recebido: 13');
+      expect(result.errors).toContain('Campo dx deve ser um número válido, recebido 13 no tipo: string');
       expect(result.errors).toContain('Campo iq deve ser maior que 0, recebido: -5');
-      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: -2');
-      expect(result.errors).toContain('Campo per deve ser um número maior que 0, recebido: 0');
+      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: -2 com o tipo number');
+      expect(result.errors).toContain('Campo per deve ser um número maior que 0, recebido: 0 com o tipo number');
       expect(result.errors).toContain('Campo basicSpeed deve ser um número positivo, recebido: -1');
       expect(result.errors).toContain('Campo basicMove deve ser um número não negativo, recebido: -5');
       expect(result.errors).toContain('Campo fatiguePoints deve ser um número maior que 0, recebido: 15');
@@ -751,7 +751,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo st deve ser um número válido, recebido: NaN');
+      expect(result.errors).toContain('Campo st deve ser um número válido, recebido NaN no tipo: number');
     });
 
     it('deve falhar com Infinity em atributos obrigatórios', () => {
@@ -765,7 +765,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo dx deve ser um número válido, recebido: Infinity');
+      expect(result.errors).toContain('Campo dx deve ser um número válido, recebido Infinity no tipo: number');
     });
 
     it('deve validar com valores decimais válidos para atributos derivados', () => {
@@ -825,7 +825,7 @@ describe('CharacterAttributesValidator', () => {
       const result: ValidationResult = CharacterAttributesValidator.validate(invalidDecimalData);
 
       expect(result.success).toBe(false);
-      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: 0.5');
+      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: 0.5 com o tipo number');
       expect(result.errors).toContain('Campo basicSpeed deve ser um número positivo, recebido: -0.1');
       expect(result.errors).not.toContain('Campo per deve ser um número maior que 0, recebido: 1');
       expect(result.errors).not.toContain('Campo basicMove deve ser um número não negativo, recebido: 0');
@@ -916,7 +916,7 @@ describe('CharacterAttributesValidator', () => {
       expect(result.success).toBe(false);
       expect(result.errors.length).toBeGreaterThanOrEqual(4);
       expect(result.errors).toContain('Campo st deve ser maior que 0, recebido: 0');
-      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: 0');
+      expect(result.errors).toContain('Campo will deve ser um número maior que 0, recebido: 0 com o tipo number');
       expect(result.errors).toContain('Campo basicSpeed deve ser um número positivo, recebido: 0');
       expect(result.errors).toContain('Campo magicPoints deve ser um número não negativo, recebido: -5');
     });

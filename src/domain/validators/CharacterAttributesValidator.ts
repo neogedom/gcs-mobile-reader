@@ -44,7 +44,7 @@ export class CharacterAttributesValidator {
         errors.push(`Campo obrigatório ausente: ${attr.name}`);
       } else if (typeof attr.value !== 'number' || isNaN(attr.value) || !isFinite(attr.value)) {
         errors.push(
-          `Campo ${attr.name} deve ser um número válido, recebido no tipo: ${typeof attr.value}`
+          `Campo ${attr.name} deve ser um número válido, recebido ${attr.value} no tipo: ${typeof attr.value}`
         );
       } else if (attr.value < 1) {
         errors.push(

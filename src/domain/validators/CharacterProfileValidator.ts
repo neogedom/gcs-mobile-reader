@@ -61,7 +61,7 @@ export class CharacterProfileValidator {
       (typeof data.age !== 'number' || data.age < 0)
     ) {
       errors.push(
-        `Campo age deve ser um número não negativo, recebido: ${data.age}`
+        `Campo age deve ser um número não negativo, recebido: ${data.age} com o tipo ${typeof data.age}`
       );
     }
 
@@ -71,7 +71,7 @@ export class CharacterProfileValidator {
       (typeof data.height !== 'number' || data.height < 0)
     ) {
       errors.push(
-        `Campo height deve ser um número não negativo, recebido: ${data.height}`
+        `Campo height deve ser um número não negativo, recebido: ${data.height} com o tipo ${typeof data.height}`
       );
     }
 
@@ -81,7 +81,7 @@ export class CharacterProfileValidator {
       (typeof data.weight !== 'number' || data.weight < 0)
     ) {
       errors.push(
-        `Campo weight deve ser um número não negativo, recebido: ${data.weight}`
+        `Campo weight deve ser um número não negativo, recebido: ${data.weight} com o tipo ${typeof data.weight}`
       );
     }
 
@@ -91,7 +91,7 @@ export class CharacterProfileValidator {
       (typeof data.techLevel !== 'number' || data.techLevel < 0)
     ) {
       errors.push(
-        `Campo techLevel deve ser um número não negativo, recebido: ${data.techLevel}`
+        `Campo techLevel deve ser um número não negativo, recebido: ${data.techLevel} com o tipo ${typeof data.techLevel}`
       );
     }
 
