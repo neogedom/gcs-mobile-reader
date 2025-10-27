@@ -6,10 +6,7 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
-  testMatch: [
-    '**/*.test.(ts|tsx)',
-    '**/*.spec.(ts|tsx)',
-  ],
+  testMatch: ['**/*.test.(ts|tsx)', '**/*.spec.(ts|tsx)'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
@@ -19,20 +16,9 @@ module.exports = {
     '!src/**/*.test.{ts,tsx}',
     '!src/**/*.spec.{ts,tsx}',
   ],
-  coverageReporters: [
-    'text',
-    'lcov',
-    'html',
-  ],
+  coverageReporters: ['text', 'lcov', 'html'],
   testEnvironment: 'node',
-  moduleFileExtensions: [
-    'ts',
-    'tsx',
-    'js',
-    'jsx',
-    'json',
-    'node',
-  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@components/(.*)$': '<rootDir>/src/presentation/components/$1',

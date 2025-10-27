@@ -28,9 +28,12 @@ module.exports = {
     'react-native/split-platform-components': 'error',
     'react-native/no-inline-styles': 'warn',
     'react-native/no-color-literals': 'warn',
-    'react-native/no-raw-text': ['error', {
-      skip: ['CustomText', 'Typography'],
-    }],
+    'react-native/no-raw-text': [
+      'error',
+      {
+        skip: ['CustomText', 'Typography'],
+      },
+    ],
 
     // Regras TypeScript
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
@@ -69,5 +72,14 @@ module.exports = {
     '*.config.js',
     'android/',
     'ios/',
+  ],
+
+  overrides: [
+    {
+      files: ['tests/**/*.ts', 'tests/**/*.js'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    },
   ],
 };
