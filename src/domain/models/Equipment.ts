@@ -4,7 +4,18 @@
  *
  * Este modelo representa equipamentos individuais e suporta
  * estrutura hierárquica para equipamentos que contenham outros.
+ * Atualizado para suportar weapons e containers baseados na estrutura real GCS.
  */
+
+import { Weapon } from './Weapon';
+
+export interface EquipmentCalc {
+  /** Valor estendido (incluindo children) */
+  extended_value?: number;
+  
+  /** Peso estendido (incluindo children) */
+  extended_weight?: number;
+}
 
 export class Equipment {
   /** Identificador único do equipamento */
@@ -24,6 +35,12 @@ export class Equipment {
 
   /** Equipamentos filhos (opcional) */
   public readonly children?: Equipment[];
+
+  /** Weapons associadas ao equipamento (opcional) */
+  public readonly weapons?: Weapon[];
+
+  /** Dados calculados (extended_value, extended_weight, etc.) */
+  public readonly calc?: EquipmentCalc;
 
   /** Descrição do equipamento (opcional) */
   public readonly description?: string;
@@ -52,6 +69,8 @@ export class Equipment {
     weight?: number;
     cost?: number;
     children?: Equipment[];
+    weapons?: Weapon[];
+    calc?: EquipmentCalc;
     description?: string;
     techLevel?: number;
     legalityClass?: string;
@@ -72,6 +91,8 @@ export class Equipment {
     this.weight = data.weight ?? 0;
     this.cost = data.cost ?? 0;
     this.children = data.children ?? [];
+    this.weapons = data.weapons ?? [];
+    this.calc = data.calc;
     this.description = data.description ?? '';
     this.techLevel = data.techLevel ?? 0;
     this.legalityClass = data.legalityClass ?? '';
@@ -79,6 +100,22 @@ export class Equipment {
     this.category = data.category ?? '';
 
     Object.freeze(this);
+  }
+
+  /**
+   * Identifica se o equipamento é um container (tem children)
+   * @returns true se for container
+   */
+  get isContainer(): boolean {
+    return !!this.children && this.children.length > 0;
+  }
+
+  /**
+   * Identifica se o equipamento tem weapons
+   * @returns true se tiver weapons
+   */
+  get hasWeapons(): boolean {
+    return !!this.weapons && this.weapons.length > 0;
   }
 
   /**
@@ -199,6 +236,8 @@ export class Equipment {
     weight?: number;
     cost?: number;
     children?: Equipment[];
+    weapons?: Weapon[];
+    calc?: EquipmentCalc | undefined;
     description?: string;
     techLevel?: number;
     legalityClass?: string;
@@ -282,6 +321,30 @@ export class Equipment {
           }
         }
       }
+    }
+
+    // Validação do campo weapons
+    if (data.weapons !== undefined) {
+      if (!Array.isArray(data.weapons)) {
+        errors.push(
+          `Campo weapons deve ser um array, recebido: ${typeof data.weapons}`
+        );
+      } else {
+        for (let i = 0; i < data.weapons.length; i++) {
+          if (!(data.weapons[i] instanceof Weapon)) {
+            errors.push(
+              `Campo weapons[${i}] deve ser uma instância de Weapon`
+            );
+          }
+        }
+      }
+    }
+
+    // Validação do campo calc
+    if (data.calc !== undefined && typeof data.calc !== 'object') {
+      errors.push(
+        `Campo calc deve ser um objeto, recebido: ${typeof data.calc}`
+      );
     }
 
     return {
