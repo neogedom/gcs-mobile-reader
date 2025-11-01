@@ -9,6 +9,7 @@ describe('Skill Model', () => {
         name: 'Broadsword',
         level: 15,
         difficulty: 'DX/A',
+        calc: { level: 15 },
       };
 
       // Act
@@ -20,6 +21,7 @@ describe('Skill Model', () => {
       expect(skill.name).toBe(skillData.name);
       expect(skill.level).toBe(skillData.level);
       expect(skill.difficulty).toBe(skillData.difficulty);
+      expect(skill.calc.level).toBe(skillData.calc.level);
     });
 
     it('deve criar uma instância válida com diferentes valores de difficulty', () => {
@@ -29,6 +31,7 @@ describe('Skill Model', () => {
         name: 'Stealth',
         level: 12,
         difficulty: 'DX/A',
+        calc: { level: 12 },
       };
 
       // Act
@@ -40,6 +43,7 @@ describe('Skill Model', () => {
       expect(skill.name).toBe(skillData.name);
       expect(skill.level).toBe(skillData.level);
       expect(skill.difficulty).toBe(skillData.difficulty);
+      expect(skill.calc.level).toBe(skillData.calc.level);
     });
   });
 
