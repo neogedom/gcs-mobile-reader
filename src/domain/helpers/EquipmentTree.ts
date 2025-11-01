@@ -37,9 +37,15 @@ export class EquipmentTree {
     const items = Array.isArray(equipments) ? equipments : [equipments];
     if (items.length === 0) return 0;
 
-    return 1 + Math.max(0, ...items.flatMap(eq =>
-      eq.children?.map(child => this.getDepth(child)) ?? []
-    ));
+    return (
+      1 +
+      Math.max(
+        0,
+        ...items.flatMap(
+          eq => eq.children?.map(child => this.getDepth(child)) ?? []
+        )
+      )
+    );
   }
 
   /**

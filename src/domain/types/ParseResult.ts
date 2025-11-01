@@ -1,5 +1,5 @@
-export type ParseResult = {
+export type ParseResult<T = Record<string, unknown>> = {
   success: boolean;
-  data: Record<string, unknown> | null;
+  data: T | null;
   errors: string[];
 };

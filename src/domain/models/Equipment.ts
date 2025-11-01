@@ -12,9 +12,9 @@ import { Weapon } from './Weapon';
 export interface EquipmentCalc {
   /** Valor estendido (incluindo children) */
   extended_value?: number;
-  
+
   /** Peso estendido (incluindo children) */
-  extended_weight?: number;
+  extended_weight?: string;
 }
 
 export class Equipment {
@@ -40,7 +40,7 @@ export class Equipment {
   public readonly weapons?: Weapon[];
 
   /** Dados calculados (extended_value, extended_weight, etc.) */
-  public readonly calc?: EquipmentCalc;
+  public readonly calc?: EquipmentCalc | undefined;
 
   /** Descrição do equipamento (opcional) */
   public readonly description?: string;
@@ -332,9 +332,7 @@ export class Equipment {
       } else {
         for (let i = 0; i < data.weapons.length; i++) {
           if (!(data.weapons[i] instanceof Weapon)) {
-            errors.push(
-              `Campo weapons[${i}] deve ser uma instância de Weapon`
-            );
+            errors.push(`Campo weapons[${i}] deve ser uma instância de Weapon`);
           }
         }
       }

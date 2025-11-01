@@ -53,40 +53,40 @@ export class Weapon {
   public readonly damage: WeaponDamage;
 
   /** Strength requerida */
-  public readonly strength?: string;
+  public readonly strength?: string | undefined;
 
   /** Accuracy (para ranged weapons) */
-  public readonly accuracy?: string;
+  public readonly accuracy?: string | undefined;
 
   /** Range (para ranged weapons) */
-  public readonly range?: string;
+  public readonly range?: string | undefined;
 
   /** Rate of fire (para ranged weapons) */
-  public readonly rateOfFire?: string;
+  public readonly rateOfFire?: string | undefined;
 
   /** Shots (munição/tiros) */
-  public readonly shots?: string;
+  public readonly shots?: string | undefined;
 
   /** Bulk (penalidade de transporte) */
-  public readonly bulk?: string;
+  public readonly bulk?: string | undefined;
 
   /** Recoil (recuo) */
-  public readonly recoil?: string;
+  public readonly recoil?: string | undefined;
 
   /** Usage type (Swung, Thrust, Thrown) */
-  public readonly usage?: string;
+  public readonly usage?: string | undefined;
 
   /** Reach (alcance para melee weapons) */
-  public readonly reach?: string;
+  public readonly reach?: string | undefined;
 
   /** Parry (para melee weapons) */
-  public readonly parry?: string;
+  public readonly parry?: string | undefined;
 
   /** Defaults para cálculo de level */
   public readonly defaults: WeaponDefault[];
 
   /** Dados calculados */
-  public readonly calc?: WeaponCalc;
+  public readonly calc?: WeaponCalc | undefined;
 
   /**
    * Cria uma nova instância de Weapon
