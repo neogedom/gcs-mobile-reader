@@ -63,7 +63,8 @@
     "jest.config.js",
     "lib",
     "dist",
-    "build"
+    "build",
+    "tests"
   ],
   "compileOnSave": false
 }

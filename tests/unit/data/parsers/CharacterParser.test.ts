@@ -24,7 +24,7 @@ describe('CharacterParser', () => {
       expect(result.basic.id).toBe('A_DARLDjFPJ62fz2I');
       expect(result.basic.totalPoints).toBe(300);
       expect(result.basic.createdDate).toBe('2025-06-12T18:27:42-03:00');
-      expect(result.basic.modifiedDate).toBe('2025-06-28T16:13:15-03:00');
+      expect(result.basic.modifiedDate).toBe('2025-10-28T20:26:24-03:00');
 
       expect(result.profile.name).toBe('Edy Wilmont (MotorFace)');
       expect(result.profile.playerName).toBe('Vinícius Gomes Ferreira');

@@ -9,6 +9,9 @@ describe('isSkill', () => {
         name: 'Sword',
         level: 12,
         difficulty: 'A',
+        calc: {
+          level: 1,
+        },
       });
 
       expect(isSkill(skill)).toBe(true);
@@ -20,6 +23,9 @@ describe('isSkill', () => {
         name: 'Untrained',
         level: 0,
         difficulty: 'E',
+        calc: {
+          level: 1,
+        },
       });
 
       expect(isSkill(skill)).toBe(true);
@@ -31,6 +37,9 @@ describe('isSkill', () => {
         name: 'Master Sword',
         level: 25,
         difficulty: 'VH',
+        calc: {
+          level: 1,
+        },
       });
 
       expect(isSkill(skill)).toBe(true);
@@ -42,6 +51,9 @@ describe('isSkill', () => {
         name: 'Easy Skill',
         level: 10,
         difficulty: 'E',
+        calc: {
+          level: 1,
+        },
       });
 
       expect(isSkill(skill)).toBe(true);

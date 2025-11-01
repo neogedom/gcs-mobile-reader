@@ -10,4 +10,7 @@ export { Equipment } from './Equipment';
 export { Skill } from './Skill';
 export { Spell } from './Spell';
 export { Trait } from './Trait';
+export { Weapon } from './Weapon';
 export type { Character } from './Character';
+export type { WeaponDamage, WeaponDefault, WeaponCalc } from './Weapon';
+export type { EquipmentCalc } from './Equipment';
