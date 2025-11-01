@@ -72,6 +72,7 @@ module.exports = {
     '*.config.js',
     'android/',
     'ios/',
+    'tests/',
   ],
 
   overrides: [

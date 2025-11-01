@@ -104,7 +104,9 @@ export class EquipmentParser {
         weapons: weapons || [],
         ...(calc ? { calc } : {}),
         description: rawEquipment.description,
-        ...(rawEquipment.tech_level !== undefined ? { techLevel: parseInt(rawEquipment.tech_level, 10) } : {}),
+        ...(rawEquipment.tech_level !== undefined
+          ? { techLevel: parseInt(rawEquipment.tech_level, 10) }
+          : {}),
         legalityClass: rawEquipment.legality_class,
         notes: rawEquipment.local_notes,
       });
